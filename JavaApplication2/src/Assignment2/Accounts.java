@@ -5,15 +5,31 @@
  */
 package Assignment2;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Sid
  */
-public class Accounts {
+public class Accounts implements Serializable {
 
-    public Accounts()
+    private String username;
+    private String password;
+    
+    public Accounts(String newUsername, String newPassword)
     {
-        
+       username =  newUsername;
+       password = newPassword;
+    }
+    
+    String getUsername()
+    {
+        return username;
+    }
+    
+    String getPassword()
+    {
+        return password;
     }
     
 }
