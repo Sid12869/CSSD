@@ -129,7 +129,8 @@ public class LoginGUI extends javax.swing.JFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Username or Password was worng");
+            JOptionPane.showMessageDialog(null, "Username or Password was worng" ,
+                "Incorrect Login Credential", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_BtnLoginActionPerformed
 
