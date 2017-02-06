@@ -24,10 +24,10 @@ public class LoginGUI extends javax.swing.JFrame {
     
     public LoginGUI() {
         
-//        Account account1 = new Account("Sid", "password");
-//        Account account2 = new Account("Andy", "password");
-//        Accounts.add(account1);
-//        Accounts.add(account2);
+        Account account1 = new Account("Sid", "password");
+        Account account2 = new Account("Andy", "password");
+        Accounts.add(account1);
+        Accounts.add(account2);
 //        try
 //        {
 //          Serialize(Accounts, FILENAME);
@@ -37,18 +37,18 @@ public class LoginGUI extends javax.swing.JFrame {
 //          System.out.println(b);
 //        }
 
-        try
-        {
-           Accounts = (AccountList) Deserialize(FILENAME);
-        }
-         catch (IOException e)
-         {
-            System.out.println(e);
-         }
-         catch (ClassNotFoundException e)
-         {
-            System.out.println(e);
-         }  
+//        try
+//        {
+//           Accounts = (AccountList) Deserialize(FILENAME);
+//        }
+//         catch (IOException e)
+//         {
+//            System.out.println(e);
+//         }
+//         catch (ClassNotFoundException e)
+//         {
+//            System.out.println(e);
+//         }  
         
         initComponents();
     }
@@ -121,15 +121,15 @@ public class LoginGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
-        if(Accounts.authentication(txtUsername.getText(), txtPassword.getText()))
+        Account user = Accounts.authentication(txtUsername.getText(), txtPassword.getText());
+        if(user != null)
         {
-           UserGUI gui =  new UserGUI();
-           LoginGUI.this.setVisible(false);
+           UserGUI gui =  new UserGUI(user);
            gui.setVisible(true);
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Username or Password was worng" ,
+            JOptionPane.showMessageDialog(null, "Username or Password was wrong" ,
                 "Incorrect Login Credential", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_BtnLoginActionPerformed

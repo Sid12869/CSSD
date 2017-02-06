@@ -22,12 +22,12 @@ public class Account implements Serializable {
        password = newPassword;
     }
     
-    String getUsername()
+    public String getUsername()
     {
         return username;
     }
     
-    String getPassword()
+    public String getPassword()
     {
         return password;
     }

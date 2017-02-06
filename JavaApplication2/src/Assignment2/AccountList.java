@@ -24,7 +24,7 @@ public class AccountList extends ArrayList<Account> {
         super.remove(aAccount);
     }
     
-    public boolean authentication(String username, String password)
+    public Account authentication(String username, String password)
     {
         for(int i = 0; i < this.size(); i++)
         {
@@ -32,11 +32,12 @@ public class AccountList extends ArrayList<Account> {
          {
              if(this.get(i).getPassword().equals(password))
              {    
-                return true;
+                return this.get(i);
              }
          }
         }
         
-        return false;
+        return null;
     }
+    
 }
