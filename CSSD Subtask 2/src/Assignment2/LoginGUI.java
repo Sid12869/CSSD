@@ -18,21 +18,21 @@ import javax.swing.JOptionPane;
  */
 public class LoginGUI extends javax.swing.JFrame 
 {
-    private static final String FILENAME = "accountDatabase.ser";
+    private static final String ACCOUNTS = "accountDatabase.ser";
     private UserList userList = new UserList();
     
     public LoginGUI() 
     {
-        User account1 = new User("group q", "password");
-        User account2 = new User("sid", "password");
-        User account3 = new User("andy", "password");
+        User account1 = new User("Group Q", "password", AccessLevel.FOOD_PROCESSOR);
+        User account2 = new User("Sid", "password", AccessLevel.FOOD_PROCESSOR);
+        User account3 = new User("Andy", "password", AccessLevel.FARMER);
         userList.add(account1);
         userList.add(account2);
         userList.add(account3);
         
 //        try
 //        {
-//            serialize(userList, FILENAME);
+//            serialize(userList, ACCOUNTS);
 //        }
 //        catch (IOException e)
 //        {
@@ -40,7 +40,7 @@ public class LoginGUI extends javax.swing.JFrame
 //        }
 //        try
 //        {
-//            userList = (UserList) deserialize(FILENAME);
+//            userList = (UserList) deserialize(ACCOUNTS);
 //        }
 //        catch (IOException e)
 //        {
@@ -134,7 +134,7 @@ public class LoginGUI extends javax.swing.JFrame
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-        User user = userList.authentication(txtUsername.getText(), txtPassword.getText());
+        User user = userList.authenticate(txtUsername.getText(), txtPassword.getText());
         if(user != null)
         {
             UserGUI gui =  new UserGUI(user);

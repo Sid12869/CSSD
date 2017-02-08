@@ -21,15 +21,11 @@ public class UserList extends ArrayList<User> {
         super.add(aAccount);
     }
     
-    public void removeAccount(User aAccount){
-        super.remove(aAccount);
-    }
-    
-    public User authentication(String username, String password)
+    public User authenticate(String username, String password)
     {
         for(int i = 0; i < this.size(); i++)
         {
-            if (this.get(i).getUsername().equals(username))
+            if (this.get(i).getUsername().equalsIgnoreCase(username)) //ignore case sensitivity
             {
                 if(this.get(i).getPassword().equals(password))
                 {    

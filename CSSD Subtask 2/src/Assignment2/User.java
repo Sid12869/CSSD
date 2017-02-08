@@ -12,14 +12,20 @@ import java.io.Serializable;
  * @author Sid
  */
 public class User implements Serializable {
+    
     private String username;
     private String password;
+    private FarmList farms; //list of the farms the user has access to
+    private AccessLevel accessLevel;
     
-    public User(String username, String password)
+    public User(String username, String password, AccessLevel accessLevel)
     {
         this.username = username;
         this.password = password;
+        this.accessLevel = accessLevel;
+        farms = new FarmList();
     }
+    
     public String getUsername()
     {
         return username;
@@ -28,5 +34,20 @@ public class User implements Serializable {
     public String getPassword()
     {
         return password;
+    }
+    
+    public AccessLevel getAccessLevel()
+    {
+        return accessLevel;
+    }
+    
+    public void addFarm(Farm aFarm)
+    {
+        farms.addFarm(aFarm);
+    }
+    
+    public void removeFarm(Farm aFarm)
+    {
+        farms.removeFarm(aFarm);
     }
 }

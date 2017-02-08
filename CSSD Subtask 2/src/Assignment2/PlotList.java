@@ -11,24 +11,20 @@ import java.util.ArrayList;
  *
  * @author Andy
  */
-public class FarmList extends ArrayList<Farm> 
+public class PlotList extends ArrayList<Plot>
 {
-    private Area area;
-    
-    public FarmList()
+    public PlotList()
     {
         super();
     }
     
-    public void addFarm(Farm aFarm)
+    public void addPlot(Plot plot)
     {
-        super.add(aFarm);
+        super.add(plot);
     }
     
-    public void removeFarm(Farm aFarm)
+    public void removePlot(Plot plot)
     {
-        super.remove(aFarm);
+        super.remove(plot);
     }
-    
-    //public Area findAreaByCoords(){} not shown in class diagram. needed to return coords in area?
 }
