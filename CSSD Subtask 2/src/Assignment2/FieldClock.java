@@ -9,20 +9,16 @@ package Assignment2;
  *
  * @author Andy
  */
-public class Plot 
+public class FieldClock 
 {
-    private Area area;
-    private SensorDataList sensorData;
-    private PlotState plotState;
-    private Crop currentCrop;
-    private PlotHistoryList history;
+    private SensorList sensors;
     
-    public void newHarvest()
+    public FieldClock(SensorList sensors)
     {
-        //function not defined
+        this.sensors = sensors;
     }
     
-    public void plotHarvested()
+    public void start()
     {
         //function not defined
     }

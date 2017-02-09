@@ -11,20 +11,20 @@ import java.util.ArrayList;
  *
  * @author Andy
  */
-public class SensorDataList extends ArrayList<SensorData>
+public class SensorList extends ArrayList<Sensor> 
 {
-    public SensorDataList()
+    public SensorList()
     {
         super();
     }
     
-    public void addSensorData(SensorData sensorData)
+    public void addSensor(Sensor aSensor)
     {
-        super.add(sensorData);
+        super.add(aSensor);
     }
     
-    public void removeSensorData(SensorData sensorData)
+    public void removeSensor(Sensor aSensor)
     {
-        super.remove(sensorData);
+        super.remove(aSensor);
     }
 }

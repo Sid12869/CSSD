@@ -5,19 +5,42 @@
  */
 package Assignment2;
 
+import java.util.Arrays;
+
 /**
  *
  * @author b4018943
  */
 public class FarmManagementGUI extends javax.swing.JFrame 
 {
-
+    User user = null;
+    FarmList farms = null;
+    //FarmList farms = Core.myAccount.getFarms();
+    
     /**
      * Creates new form FarmList
+     * @param user
      */
-    public FarmManagementGUI() 
+    public FarmManagementGUI(User user) 
     {
         initComponents();
+        this.user = user;
+        lblUsername.setText(user.getUsername());
+        //System.out.print(Core.myAccount.getFarms().get(0).getName());
+        farmList.setListData(user.getFarms().toArray());
+    }
+     
+    //ignore for now. do not remove
+    public void getFarms()
+    {
+        //farms = Core.myAccount.getFarms();
+    }
+    public void showFarms()
+    {
+        /*for(int i = 0; i < Core.myAccount.getFarms().size(); i++)
+        {
+            System.out.println(Core.myAccount.getFarms().get(i).getName());
+        }*/
     }
 
     /**
@@ -29,29 +52,29 @@ public class FarmManagementGUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
+        btnAddFarm = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        farmList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Log Out");
-        jButton1.setName("btnLogout"); // NOI18N
+        btnLogout.setText("Log Out");
+        btnLogout.setName("btnLogout"); // NOI18N
 
-        jLabel1.setText("Username goes here");
-        jLabel1.setName("lblUsername"); // NOI18N
+        lblUsername.setText("Username goes here");
+        lblUsername.setName("lblUsername"); // NOI18N
 
-        jButton2.setText("+ Add Farm");
-        jButton2.setName("btnAddFarm"); // NOI18N
+        btnAddFarm.setText("+ Add Farm");
+        btnAddFarm.setName("btnAddFarm"); // NOI18N
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        farmList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(farmList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -59,15 +82,15 @@ public class FarmManagementGUI extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnLogout)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lblUsername)
                 .addGap(50, 50, 50))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jButton2))
+                        .addComponent(btnAddFarm))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -78,10 +101,10 @@ public class FarmManagementGUI extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                    .addComponent(btnLogout)
+                    .addComponent(lblUsername))
                 .addGap(48, 48, 48)
-                .addComponent(jButton2)
+                .addComponent(btnAddFarm)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -92,10 +115,10 @@ public class FarmManagementGUI extends javax.swing.JFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton btnAddFarm;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JList farmList;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 }

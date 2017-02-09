@@ -13,10 +13,10 @@ public class UserGUI extends javax.swing.JFrame
 {
     User user;
     
-    public UserGUI(User account)
+    public UserGUI(User user)
     {
         initComponents();
-        user = account;
+        this.user = user; //now using a global user in Core.java
         lblGreeting.setText("Hey " + user.getUsername() + ", what would you like to do?" );
     }
 
@@ -42,6 +42,11 @@ public class UserGUI extends javax.swing.JFrame
 
         btnFarmMng.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnFarmMng.setText("Farm Management");
+        btnFarmMng.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFarmMngActionPerformed(evt);
+            }
+        });
 
         btnHardwareMng.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnHardwareMng.setText("Hardware Management");
@@ -81,6 +86,11 @@ public class UserGUI extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFarmMngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFarmMngActionPerformed
+        FarmManagementGUI gui = new FarmManagementGUI(user);
+        gui.setVisible(true);
+    }//GEN-LAST:event_btnFarmMngActionPerformed
 
     /**
      * @param args the command line arguments

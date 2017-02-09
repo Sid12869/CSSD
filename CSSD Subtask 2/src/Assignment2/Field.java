@@ -17,9 +17,11 @@ public class Field implements Serializable
     private PlotList plots;
     private String name;
     
-    public Field()
+    public Field(Area area, PlotList plots, String name)
     {
-        
+        this.area = area;
+        this.plots = plots;
+        this.name = name;
     }
     
     /*public Plot getPlotInPosition(GPSCoord location)

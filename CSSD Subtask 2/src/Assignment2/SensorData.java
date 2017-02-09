@@ -13,11 +13,20 @@ import java.util.Date;
  */
 public class SensorData 
 {
-    private GPSCoord sensorLoc;
+    //private GPSCoordList sensorLoc; //not needed. use Sensor instead:
+    private Sensor sensor;
     private Date dataTime;
     private int sensorId;
     private double rawData;
     private SensorType sensorType;
+    
+    public SensorData(Sensor sensor, Date dataTime, double rawData, SensorType sensorType)
+    {
+        this.sensor = sensor;
+        this.dataTime = dataTime;
+        this.rawData = rawData;
+        this.sensorType = sensorType;
+    }
     
     public int getDataRepresentationType()
     {

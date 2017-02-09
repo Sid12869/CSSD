@@ -14,13 +14,14 @@ import java.io.Serializable;
 public class Farm implements Serializable 
 {
     private Area area;
-    private FieldList FieldList;
+    private FieldList fields;
     private int id; //not necessary because not a database?
     private String name;
     
-    public Farm()
+    public Farm(Area area, String name)
     {
-        
+        this.area = area;
+        this.name = name;
     }
     
     /*public Plot getPlotInPosition(GPSCoord location)
@@ -31,5 +32,10 @@ public class Farm implements Serializable
     public Area getArea()
     {
         return area;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
 }

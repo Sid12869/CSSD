@@ -43,11 +43,16 @@ public class User implements Serializable {
     
     public void addFarm(Farm aFarm)
     {
-        farms.addFarm(aFarm);
+        farms.add(aFarm);
     }
     
     public void removeFarm(Farm aFarm)
     {
-        farms.removeFarm(aFarm);
+        farms.add(aFarm);
+    }
+    
+    public FarmList getFarms()
+    {
+        return farms;
     }
 }
