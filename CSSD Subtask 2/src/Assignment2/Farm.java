@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Farm implements Serializable 
 {
     private Area area;
-    private FieldList fields;
+    private FieldList fields = new FieldList();
     private int id; //not necessary because not a database?
     private String name;
     
@@ -28,6 +28,15 @@ public class Farm implements Serializable
     {
         return plot;
     }*/
+    
+    public String toString(){
+        return name;
+    }
+    
+    public FieldList getFields()
+    {
+        return fields;
+    }
     
     public Area getArea()
     {

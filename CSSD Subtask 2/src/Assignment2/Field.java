@@ -14,13 +14,12 @@ import java.io.Serializable;
 public class Field implements Serializable
 {
     private Area area;
-    private PlotList plots;
+    private PlotList plots = new PlotList();
     private String name;
     
-    public Field(Area area, PlotList plots, String name)
+    public Field(Area area, String name)
     {
         this.area = area;
-        this.plots = plots;
         this.name = name;
     }
     
@@ -29,8 +28,22 @@ public class Field implements Serializable
         return plot;
     }*/
     
+    public String toString(){
+        return name;
+    }
+    
+    public PlotList getPlots()
+    {
+        return plots;
+    }
+    
     public Area getArea()
     {
         return area;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
 }

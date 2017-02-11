@@ -5,7 +5,7 @@
  */
 package Assignment2;
 
-import java.util.Arrays;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -14,8 +14,13 @@ import java.util.Arrays;
 public class FarmManagementGUI extends javax.swing.JFrame 
 {
     User user = null;
-    FarmList farms = null;
-    //FarmList farms = Core.myAccount.getFarms();
+    FarmList farms = new FarmList();
+    FieldList fields = new FieldList();
+    Farm selectedFarm = null;
+    Farm addToFarm = null;
+    Field selectedField = null;
+    DefaultListModel farmCoords;
+    DefaultListModel fieldCoords;
     
     /**
      * Creates new form FarmList
@@ -25,22 +30,127 @@ public class FarmManagementGUI extends javax.swing.JFrame
     {
         initComponents();
         this.user = user;
+        farms = user.getFarms();
         lblUsername.setText(user.getUsername());
-        //System.out.print(Core.myAccount.getFarms().get(0).getName());
-        farmList.setListData(user.getFarms().toArray());
+        getFarmList();
     }
-     
-    //ignore for now. do not remove
-    public void getFarms()
+    
+    //fill farm JList
+    public final void getFarmList()
     {
-        //farms = Core.myAccount.getFarms();
+        farmList.setListData(farms.toArray());
     }
-    public void showFarms()
+    
+    //fill field JList based on selected farm
+    public final void getFieldList()
     {
-        /*for(int i = 0; i < Core.myAccount.getFarms().size(); i++)
+        fieldList.setListData(fields.toArray());
+    }
+    
+    public void setSelectedFarm()
+    {
+        int index = farmList.getSelectedIndex();
+        for (int i = 0; i < farms.size(); i++)
         {
-            System.out.println(Core.myAccount.getFarms().get(i).getName());
-        }*/
+            selectedFarm = farms.get(i);
+            if (selectedFarm.getName().equals(farmList.getModel().getElementAt(index).toString()))
+            {
+                showFarmFields();
+                break;
+            }
+        }
+    }
+    
+    public void setSelectedField()
+    {
+        int index = fieldList.getSelectedIndex();
+        for (int i = 0; i < fields.size(); i++)
+        {
+            selectedField = fields.get(i);
+            if (selectedField.getName().equals(fieldList.getModel().getElementAt(index).toString()))
+            {
+                break;
+            }
+        }
+    }
+    
+    public void showFarmFields()
+    {
+        fields = selectedFarm.getFields();
+        fieldList.setListData(fields.toArray());
+    }
+    
+    public void addFarm()
+    {
+        farmCoords = new DefaultListModel();
+        farmCoordList.setModel(farmCoords);
+        addFarmDialog.setVisible(true);
+    }
+    
+    public void addField()
+    {
+        if ((!farmList.isSelectionEmpty()) && (!farmList.isSelectionEmpty()))
+        {
+            fieldCoords = new DefaultListModel();
+            farmCoordList.setModel(fieldCoords);
+            addToFarm = selectedFarm;
+            addFieldDialog.setVisible(true);
+        }else{
+            //show error
+        }
+    }
+    
+    public void newFarm()
+    {
+        GPSCoordList location = new GPSCoordList();
+        String farmName = txtFarmName.getText();
+        for (int i=0; i < farmCoordList.getModel().getSize(); i++)
+        {
+            String[] coords = farmCoordList.getModel().getElementAt(i).split(",");
+            GPSCoord gps = new GPSCoord(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
+            location.add(gps);
+        }
+        Area area = new Area(location);
+        Farm farm = new Farm(area, farmName);
+        user.addFarm(farm);
+        getFarmList();
+        addFarmDialog.dispose();
+    }
+    
+    public void newField()
+    {
+        GPSCoordList location = new GPSCoordList();
+        String fieldName = txtFieldName.getText();
+        for (int i=0; i < fieldCoordList.getModel().getSize(); i++)
+        {
+            String[] coords = fieldCoordList.getModel().getElementAt(i).split(",");
+            GPSCoord gps = new GPSCoord(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
+            location.add(gps);
+        }
+        Area area = new Area(location);
+        Field field = new Field(area, fieldName);
+        addToFarm.getFields().addField(field);
+        getFieldList();
+        addFieldDialog.dispose();
+    }
+    
+    public void deleteFarm()
+    {
+        if ((!farmList.isSelectionEmpty()) && (!farmList.isSelectionEmpty()))
+        {
+            user.getFarms().removeFarm(selectedFarm);
+            getFarmList();
+            fieldList.setListData(new String[0]);
+        }
+    }
+    
+    public void deleteField()
+    {
+        if ((!fieldList.isSelectionEmpty()) && (!fieldList.isSelectionEmpty()))
+        {
+            fields.removeField(selectedField);
+            getFieldList();
+        }
     }
 
     /**
@@ -52,73 +162,414 @@ public class FarmManagementGUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addFarmDialog = new javax.swing.JDialog();
+        jLabel2 = new javax.swing.JLabel();
+        btnFarmDialogAdd = new javax.swing.JButton();
+        btnFarmDialogCancel = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtFarmName = new javax.swing.JTextField();
+        txtFarmLocation = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        farmCoordList = new javax.swing.JList<>();
+        btnAddFarmCoords = new javax.swing.JButton();
+        addFieldDialog = new javax.swing.JDialog();
+        txtFieldLocation = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        fieldCoordList = new javax.swing.JList<>();
+        jLabel6 = new javax.swing.JLabel();
+        btnFieldDialogAdd = new javax.swing.JButton();
+        btnFieldDialogCancel = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtFieldName = new javax.swing.JTextField();
+        btnAddFieldCoords = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         btnAddFarm = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         farmList = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        fieldList = new javax.swing.JList();
+        lblFields = new javax.swing.JLabel();
+        btnDeleteFarm = new javax.swing.JButton();
+        btnDeleteField = new javax.swing.JButton();
+        btnAddField = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addFarmDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addFarmDialog.setAlwaysOnTop(true);
+        addFarmDialog.setMinimumSize(new java.awt.Dimension(280, 340));
+        addFarmDialog.setModal(true);
+        addFarmDialog.setPreferredSize(new java.awt.Dimension(280, 340));
+        addFarmDialog.setResizable(false);
+
+        jLabel2.setText("Add New Farm");
+
+        btnFarmDialogAdd.setText("Ok");
+        btnFarmDialogAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFarmDialogAddActionPerformed(evt);
+            }
+        });
+
+        btnFarmDialogCancel.setText("Cancel");
+        btnFarmDialogCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFarmDialogCancelActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Farm Name:");
+
+        jLabel4.setText("Add new farm co-ordinate (location):");
+
+        jScrollPane4.setViewportView(farmCoordList);
+
+        btnAddFarmCoords.setText("+ Add to co-ordinates");
+        btnAddFarmCoords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFarmCoordsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addFarmDialogLayout = new javax.swing.GroupLayout(addFarmDialog.getContentPane());
+        addFarmDialog.getContentPane().setLayout(addFarmDialogLayout);
+        addFarmDialogLayout.setHorizontalGroup(
+            addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addFarmDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(txtFarmName)
+                    .addComponent(txtFarmLocation)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFarmDialogLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnFarmDialogCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFarmDialogAdd))
+                    .addGroup(addFarmDialogLayout.createSequentialGroup()
+                        .addGroup(addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(btnAddFarmCoords))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        addFarmDialogLayout.setVerticalGroup(
+            addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addFarmDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFarmName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFarmLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddFarmCoords)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFarmDialogCancel)
+                    .addComponent(btnFarmDialogAdd))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+
+        addFieldDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addFieldDialog.setMinimumSize(new java.awt.Dimension(280, 340));
+        addFieldDialog.setPreferredSize(new java.awt.Dimension(280, 340));
+        addFieldDialog.setResizable(false);
+
+        jLabel5.setText("Add new field co-ordinate (location):");
+
+        jScrollPane5.setViewportView(fieldCoordList);
+
+        jLabel6.setText("Add New Field");
+
+        btnFieldDialogAdd.setText("Ok");
+        btnFieldDialogAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFieldDialogAddActionPerformed(evt);
+            }
+        });
+
+        btnFieldDialogCancel.setText("Cancel");
+        btnFieldDialogCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFieldDialogCancelActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Field Name:");
+
+        btnAddFieldCoords.setText("+ Add to co-ordinates");
+        btnAddFieldCoords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFieldCoordsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addFieldDialogLayout = new javax.swing.GroupLayout(addFieldDialog.getContentPane());
+        addFieldDialog.getContentPane().setLayout(addFieldDialogLayout);
+        addFieldDialogLayout.setHorizontalGroup(
+            addFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addFieldDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addFieldDialogLayout.createSequentialGroup()
+                        .addGroup(addFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5)
+                            .addComponent(btnAddFieldCoords))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFieldDialogLayout.createSequentialGroup()
+                        .addGroup(addFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtFieldName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFieldLocation, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                        .addContainerGap(1, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFieldDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnFieldDialogCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFieldDialogAdd)
+                .addContainerGap())
+        );
+        addFieldDialogLayout.setVerticalGroup(
+            addFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addFieldDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(btnAddFieldCoords)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFieldDialogCancel)
+                    .addComponent(btnFieldDialogAdd))
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
 
         btnLogout.setText("Log Out");
         btnLogout.setName("btnLogout"); // NOI18N
 
-        lblUsername.setText("Username goes here");
+        lblUsername.setText("username");
         lblUsername.setName("lblUsername"); // NOI18N
 
         btnAddFarm.setText("+ Add Farm");
         btnAddFarm.setName("btnAddFarm"); // NOI18N
+        btnAddFarm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFarmActionPerformed(evt);
+            }
+        });
 
-        farmList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        farmList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                farmListMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(farmList);
+
+        jLabel1.setText("Farms:");
+
+        fieldList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldListMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(fieldList);
+
+        lblFields.setText("Fields:");
+
+        btnDeleteFarm.setText("- Delete Selected Farm");
+        btnDeleteFarm.setName("btnAddFarm"); // NOI18N
+        btnDeleteFarm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteFarmActionPerformed(evt);
+            }
+        });
+
+        btnDeleteField.setText("- Delete Selected Field");
+        btnDeleteField.setName("btnAddFarm"); // NOI18N
+        btnDeleteField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteFieldActionPerformed(evt);
+            }
+        });
+
+        btnAddField.setText("+ Add Field To Selected Farm");
+        btnAddField.setName("btnAddFarm"); // NOI18N
+        btnAddField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnLogout)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblUsername)
-                .addGap(50, 50, 50))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(btnAddFarm))
+                        .addComponent(btnLogout)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblUsername)
+                        .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddField)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteField))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFields)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddFarm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteFarm)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogout)
                     .addComponent(lblUsername))
-                .addGap(48, 48, 48)
-                .addComponent(btnAddFarm)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddFarm)
+                    .addComponent(btnDeleteFarm))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDeleteField)
+                    .addComponent(btnAddField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(lblFields)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void farmListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_farmListMouseClicked
+        setSelectedFarm();
+    }//GEN-LAST:event_farmListMouseClicked
+
+    private void btnDeleteFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteFarmActionPerformed
+        deleteFarm();
+    }//GEN-LAST:event_btnDeleteFarmActionPerformed
+
+    private void btnDeleteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteFieldActionPerformed
+        deleteField();
+    }//GEN-LAST:event_btnDeleteFieldActionPerformed
+
+    private void btnAddFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFarmActionPerformed
+        addFarm();
+    }//GEN-LAST:event_btnAddFarmActionPerformed
+
+    private void btnAddFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFieldActionPerformed
+        addField();
+    }//GEN-LAST:event_btnAddFieldActionPerformed
+
+    private void btnFarmDialogCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFarmDialogCancelActionPerformed
+        addFarmDialog.dispose();
+    }//GEN-LAST:event_btnFarmDialogCancelActionPerformed
+
+    private void btnFieldDialogCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFieldDialogCancelActionPerformed
+        addFieldDialog.dispose();
+    }//GEN-LAST:event_btnFieldDialogCancelActionPerformed
+
+    private void btnFieldDialogAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFieldDialogAddActionPerformed
+        newField();
+    }//GEN-LAST:event_btnFieldDialogAddActionPerformed
+
+    private void btnFarmDialogAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFarmDialogAddActionPerformed
+        newFarm();
+    }//GEN-LAST:event_btnFarmDialogAddActionPerformed
+
+    private void btnAddFarmCoordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFarmCoordsActionPerformed
+        farmCoords.addElement(txtFarmLocation.getText());
+        txtFarmLocation.setText("");
+        txtFarmLocation.grabFocus();
+        farmCoordList.setModel(farmCoords);
+    }//GEN-LAST:event_btnAddFarmCoordsActionPerformed
+
+    private void btnAddFieldCoordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFieldCoordsActionPerformed
+        fieldCoords.addElement(txtFieldLocation.getText());
+        txtFieldLocation.setText("");
+        txtFieldLocation.grabFocus();
+        fieldCoordList.setModel(fieldCoords);
+    }//GEN-LAST:event_btnAddFieldCoordsActionPerformed
+
+    private void fieldListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldListMouseClicked
+        setSelectedField();
+    }//GEN-LAST:event_fieldListMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog addFarmDialog;
+    private javax.swing.JDialog addFieldDialog;
     private javax.swing.JButton btnAddFarm;
+    private javax.swing.JButton btnAddFarmCoords;
+    private javax.swing.JButton btnAddField;
+    private javax.swing.JButton btnAddFieldCoords;
+    private javax.swing.JButton btnDeleteFarm;
+    private javax.swing.JButton btnDeleteField;
+    private javax.swing.JButton btnFarmDialogAdd;
+    private javax.swing.JButton btnFarmDialogCancel;
+    private javax.swing.JButton btnFieldDialogAdd;
+    private javax.swing.JButton btnFieldDialogCancel;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JList<String> farmCoordList;
     private javax.swing.JList farmList;
+    private javax.swing.JList<String> fieldCoordList;
+    private javax.swing.JList fieldList;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lblFields;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JTextField txtFarmLocation;
+    private javax.swing.JTextField txtFarmName;
+    private javax.swing.JTextField txtFieldLocation;
+    private javax.swing.JTextField txtFieldName;
     // End of variables declaration//GEN-END:variables
 }

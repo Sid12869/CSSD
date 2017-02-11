@@ -64,6 +64,7 @@ public class LoginGUI extends javax.swing.JFrame
         btnLogin = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agriculture Management Login");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocation(new java.awt.Point(200, 150));

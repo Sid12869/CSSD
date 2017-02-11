@@ -30,5 +30,17 @@ public class FarmList extends ArrayList<Farm>
         super.remove(aFarm);
     }
     
+    public FieldList getFarm(String farmName)
+    {
+        for(int i = 0; i < this.size(); i++)
+        {
+            if (this.get(i).getName().equals(farmName))
+            {
+                return this.get(i).getFields();
+            }
+        }
+        return null;
+    }
+    
     //public Area findAreaByCoords(){} not shown in class diagram. needed to return coords in area?
 }

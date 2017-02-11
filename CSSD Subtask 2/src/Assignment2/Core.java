@@ -41,18 +41,23 @@ public class Core
         
         Area area = new Area(location); 
         
-        Farm farm = new Farm(area, "Sheffield Farm");
+        Farm farm1 = new Farm(area, "Sheffield Farm");
+        Farm farm2 = new Farm(area, "Rotherham Farm");
         
-        account1.addFarm(farm);
-        account2.addFarm(farm);
-        account3.addFarm(farm);
-    }
-    
-    public static void login(User user)
-    {
-        //myAccount = user;
-    }
+        Field field1 = new Field(area, "North Field");
+        Field field2 = new Field(area, "South Field");
         
+        farm1.getFields().add(field1); //add field to farm
+        farm1.getFields().add(field2); //add field to farm
+        
+        farm2.getFields().add(field2); //add field to farm
+        
+        account1.addFarm(farm1);
+        account1.addFarm(farm2);
+        
+        account2.addFarm(farm1);
+        account3.addFarm(farm2);
+    }
      /**
      * @param args the command line arguments
      */
