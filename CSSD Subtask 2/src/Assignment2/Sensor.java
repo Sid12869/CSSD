@@ -55,4 +55,9 @@ public class Sensor implements Serializable
     {
         //function not defined
     }
+    
+    public SensorType getSensorType()
+    {
+        return sensorType;
+    }
 }

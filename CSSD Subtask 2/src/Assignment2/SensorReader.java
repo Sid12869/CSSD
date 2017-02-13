@@ -5,14 +5,22 @@
  */
 package Assignment2;
 
+import java.util.Random;
+
 /**
  *
  * @author Andy
  */
-public class SensorReader 
+public abstract class SensorReader 
 {
-    public double readSensorData()
-    {
-        return 0; //function not defined
-    }
+    
+    public abstract double readSensorData();
+    /*{
+        int minimum = 1;
+        double maximum = 14;
+        
+        int randomNum = minimum + (int)(Math.random() * maximum);
+        
+        return randomNum;
+    }*/
 }
