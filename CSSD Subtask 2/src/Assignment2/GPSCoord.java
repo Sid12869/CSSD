@@ -19,4 +19,8 @@ public class GPSCoord
         this.lat = lat;
         this.lng = lng;
     }
+    
+    public String toString(){
+        return Double.toString(lat) +  ", " + Double.toString(lng);
+    }
 }

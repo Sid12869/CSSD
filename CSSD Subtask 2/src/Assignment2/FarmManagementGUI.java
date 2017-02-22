@@ -19,8 +19,10 @@ public class FarmManagementGUI extends javax.swing.JFrame
     Farm selectedFarm = null;
     Farm addToFarm = null;
     Field selectedField = null;
+    Plot selectedPlot = null;
     DefaultListModel farmCoords;
     DefaultListModel fieldCoords;
+    DefaultListModel plotCoords;
     
     /**
      * Creates new form FarmList
@@ -47,6 +49,12 @@ public class FarmManagementGUI extends javax.swing.JFrame
         fieldList.setListData(fields.toArray());
     }
     
+    //fill field JList based on selected field
+    public final void getPlotList()
+    {
+        plotList.setListData(selectedField.getPlots().toArray());
+    }
+    
     public void setSelectedFarm()
     {
         int index = farmList.getSelectedIndex();
@@ -68,6 +76,19 @@ public class FarmManagementGUI extends javax.swing.JFrame
         {
             selectedField = fields.get(i);
             if (selectedField.getName().equals(fieldList.getModel().getElementAt(index).toString()))
+            {
+                break;
+            }
+        }
+    }
+    
+    public void setSelectedPlot()
+    {
+        int index = plotList.getSelectedIndex();
+        for (int i = 0; i < selectedField.getPlots().size(); i++)
+        {
+            selectedPlot = selectedField.getPlots().get(i);
+            if (selectedPlot.getName().equals(fieldList.getModel().getElementAt(index).toString()))
             {
                 break;
             }
@@ -134,6 +155,38 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFieldDialog.dispose();
     }
     
+    public void newPlot()
+    {
+        GPSCoordList location = new GPSCoordList();
+        String plotName = txtPlotName.getText();
+        Crop crop = new Crop(txtPlotCrop.getText());
+        String plotStateTxt = cmbPlotState.getSelectedItem().toString();
+        PlotState plotState;
+        switch (plotStateTxt) {
+            case "Empty":  plotState = PlotState.EMPTY;
+                     break;
+            case "Sprouted":  plotState = PlotState.SPROUTED;
+                     break;
+            case "Planted":  plotState = PlotState.PLANTED;
+                     break;
+            case "Ready to harvest":  plotState = PlotState.READY_TO_HARVEST;
+                     break;
+            default: plotState = PlotState.EMPTY;
+                     break;
+        }
+        for (int i=0; i < plotCoordList.getModel().getSize(); i++)
+        {
+            String[] coords = plotCoordList.getModel().getElementAt(i).split(",");
+            GPSCoord gps = new GPSCoord(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
+            location.add(gps);
+        }
+        Area area = new Area(location);
+        Plot plot = new Plot(plotName, area, plotState, crop);
+        selectedField.getPlots().add(plot);
+        getPlotList();
+        addPlotDialog.dispose();
+    }
+    
     public void deleteFarm()
     {
         if ((!farmList.isSelectionEmpty()) && (!farmList.isSelectionEmpty()))
@@ -184,6 +237,38 @@ public class FarmManagementGUI extends javax.swing.JFrame
         jLabel7 = new javax.swing.JLabel();
         txtFieldName = new javax.swing.JTextField();
         btnAddFieldCoords = new javax.swing.JButton();
+        viewFarmDialog = new javax.swing.JDialog();
+        lblFarmName = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        farmLocationList = new javax.swing.JList();
+        jLabel8 = new javax.swing.JLabel();
+        viewFieldDialog = new javax.swing.JDialog();
+        lblFieldName = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        fieldLocationList = new javax.swing.JList();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        plotList = new javax.swing.JList();
+        btnAddPlot = new javax.swing.JButton();
+        btnRemovePlot = new javax.swing.JButton();
+        btnViewPlot = new javax.swing.JButton();
+        addPlotDialog = new javax.swing.JDialog();
+        jLabel11 = new javax.swing.JLabel();
+        txtPlotName = new javax.swing.JTextField();
+        btnAddPlotCoords = new javax.swing.JButton();
+        txtPlotLocation = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        plotCoordList = new javax.swing.JList<>();
+        jLabel13 = new javax.swing.JLabel();
+        btnPlotDialogAdd = new javax.swing.JButton();
+        btnPlotDialogCancel = new javax.swing.JButton();
+        txtPlotCrop = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        cmbPlotState = new javax.swing.JComboBox<>();
+        viewPlotDialog = new javax.swing.JDialog();
         btnLogout = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         btnAddFarm = new javax.swing.JButton();
@@ -196,6 +281,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
         btnDeleteFarm = new javax.swing.JButton();
         btnDeleteField = new javax.swing.JButton();
         btnAddField = new javax.swing.JButton();
+        btnViewFarm = new javax.swing.JButton();
+        btnViewField = new javax.swing.JButton();
 
         addFarmDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addFarmDialog.setAlwaysOnTop(true);
@@ -286,6 +373,12 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFieldDialog.setPreferredSize(new java.awt.Dimension(280, 340));
         addFieldDialog.setResizable(false);
 
+        txtFieldLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldLocationActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Add new field co-ordinate (location):");
 
         jScrollPane5.setViewportView(fieldCoordList);
@@ -366,6 +459,252 @@ public class FarmManagementGUI extends javax.swing.JFrame
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
+        viewFarmDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        viewFarmDialog.setMinimumSize(new java.awt.Dimension(300, 300));
+
+        lblFarmName.setText("Farm Name");
+
+        jScrollPane3.setViewportView(farmLocationList);
+
+        jLabel8.setText("Location Coordinates: ");
+
+        javax.swing.GroupLayout viewFarmDialogLayout = new javax.swing.GroupLayout(viewFarmDialog.getContentPane());
+        viewFarmDialog.getContentPane().setLayout(viewFarmDialogLayout);
+        viewFarmDialogLayout.setHorizontalGroup(
+            viewFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewFarmDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                    .addGroup(viewFarmDialogLayout.createSequentialGroup()
+                        .addGroup(viewFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFarmName)
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        viewFarmDialogLayout.setVerticalGroup(
+            viewFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewFarmDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFarmName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        viewFieldDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        viewFieldDialog.setMinimumSize(new java.awt.Dimension(500, 400));
+        viewFieldDialog.setPreferredSize(new java.awt.Dimension(500, 400));
+
+        lblFieldName.setText("Field Name");
+
+        jScrollPane6.setViewportView(fieldLocationList);
+
+        jLabel9.setText("Field Location Coordinates:");
+
+        jLabel10.setText("Plots:");
+
+        plotList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                plotListMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(plotList);
+
+        btnAddPlot.setText("+ Add Plot");
+        btnAddPlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPlotActionPerformed(evt);
+            }
+        });
+
+        btnRemovePlot.setText("- Remove Plot");
+        btnRemovePlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemovePlotActionPerformed(evt);
+            }
+        });
+
+        btnViewPlot.setText("View Plot");
+        btnViewPlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewPlotActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout viewFieldDialogLayout = new javax.swing.GroupLayout(viewFieldDialog.getContentPane());
+        viewFieldDialog.getContentPane().setLayout(viewFieldDialogLayout);
+        viewFieldDialogLayout.setHorizontalGroup(
+            viewFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewFieldDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6)
+                    .addComponent(jScrollPane7)
+                    .addGroup(viewFieldDialogLayout.createSequentialGroup()
+                        .addGroup(viewFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFieldName)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addGroup(viewFieldDialogLayout.createSequentialGroup()
+                                .addComponent(btnAddPlot)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRemovePlot)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnViewPlot)))
+                        .addGap(0, 211, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        viewFieldDialogLayout.setVerticalGroup(
+            viewFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewFieldDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFieldName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewFieldDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddPlot)
+                    .addComponent(btnViewPlot)
+                    .addComponent(btnRemovePlot))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        addPlotDialog.setMinimumSize(new java.awt.Dimension(400, 470));
+        addPlotDialog.setPreferredSize(new java.awt.Dimension(400, 470));
+
+        jLabel11.setText("Plot Name:");
+
+        btnAddPlotCoords.setText("+ Add to co-ordinates");
+        btnAddPlotCoords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPlotCoordsActionPerformed(evt);
+            }
+        });
+
+        txtPlotLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlotLocationActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Add new plot co-ordinate (location):");
+
+        jScrollPane8.setViewportView(plotCoordList);
+
+        jLabel13.setText("Add New Plot");
+
+        btnPlotDialogAdd.setText("Ok");
+        btnPlotDialogAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlotDialogAddActionPerformed(evt);
+            }
+        });
+
+        btnPlotDialogCancel.setText("Cancel");
+        btnPlotDialogCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlotDialogCancelActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Current Crop:");
+
+        jLabel15.setText("Plot State:");
+
+        cmbPlotState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empty", "Planted", "Sprouted", "Ready to harvest" }));
+
+        javax.swing.GroupLayout addPlotDialogLayout = new javax.swing.GroupLayout(addPlotDialog.getContentPane());
+        addPlotDialog.getContentPane().setLayout(addPlotDialogLayout);
+        addPlotDialogLayout.setHorizontalGroup(
+            addPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addPlotDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addPlotDialogLayout.createSequentialGroup()
+                        .addComponent(txtPlotName)
+                        .addContainerGap(1, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(addPlotDialogLayout.createSequentialGroup()
+                        .addGroup(addPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel12)
+                            .addComponent(btnAddPlotCoords)
+                            .addComponent(jLabel15))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addPlotDialogLayout.createSequentialGroup()
+                        .addGroup(addPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                            .addComponent(txtPlotLocation, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbPlotState, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPlotCrop, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addPlotDialogLayout.createSequentialGroup()
+                                .addGroup(addPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addPlotDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPlotDialogCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPlotDialogAdd)
+                .addContainerGap())
+        );
+        addPlotDialogLayout.setVerticalGroup(
+            addPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addPlotDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPlotName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPlotCrop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel15)
+                .addGap(11, 11, 11)
+                .addComponent(cmbPlotState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPlotLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(btnAddPlotCoords)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPlotDialogCancel)
+                    .addComponent(btnPlotDialogAdd))
+                .addContainerGap(83, Short.MAX_VALUE))
+        );
+
+        viewPlotDialog.setMinimumSize(new java.awt.Dimension(600, 500));
+        viewPlotDialog.setPreferredSize(new java.awt.Dimension(600, 500));
+
+        javax.swing.GroupLayout viewPlotDialogLayout = new javax.swing.GroupLayout(viewPlotDialog.getContentPane());
+        viewPlotDialog.getContentPane().setLayout(viewPlotDialogLayout);
+        viewPlotDialogLayout.setHorizontalGroup(
+            viewPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        viewPlotDialogLayout.setVerticalGroup(
+            viewPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+
         btnLogout.setText("Log Out");
         btnLogout.setName("btnLogout"); // NOI18N
 
@@ -422,6 +761,22 @@ public class FarmManagementGUI extends javax.swing.JFrame
             }
         });
 
+        btnViewFarm.setText("View Farm");
+        btnViewFarm.setName("btnAddFarm"); // NOI18N
+        btnViewFarm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewFarmActionPerformed(evt);
+            }
+        });
+
+        btnViewField.setText("View Field");
+        btnViewField.setName("btnAddFarm"); // NOI18N
+        btnViewField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -442,14 +797,18 @@ public class FarmManagementGUI extends javax.swing.JFrame
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddField)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDeleteField))
+                                .addComponent(btnDeleteField)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnViewField))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblFields)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddFarm)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDeleteFarm)))
+                                .addComponent(btnDeleteFarm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnViewFarm)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -462,7 +821,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddFarm)
-                    .addComponent(btnDeleteFarm))
+                    .addComponent(btnDeleteFarm)
+                    .addComponent(btnViewFarm))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -470,7 +830,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeleteField)
-                    .addComponent(btnAddField))
+                    .addComponent(btnAddField)
+                    .addComponent(btnViewField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(lblFields)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -535,14 +896,86 @@ public class FarmManagementGUI extends javax.swing.JFrame
         setSelectedField();
     }//GEN-LAST:event_fieldListMouseClicked
 
+    private void btnViewFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewFarmActionPerformed
+        if ((!farmList.isSelectionEmpty()) && (!farmList.isSelectionEmpty()))
+        {
+            lblFarmName.setText(selectedFarm.getName());
+            Area area = selectedFarm.getArea();
+            farmLocationList.setListData(area.getCoordList().toArray());
+            viewFarmDialog.setVisible(true);
+        }
+    }//GEN-LAST:event_btnViewFarmActionPerformed
+
+    private void btnViewFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewFieldActionPerformed
+        if ((!fieldList.isSelectionEmpty()) && (!fieldList.isSelectionEmpty()))
+        {
+            lblFieldName.setText(selectedFarm.getName() + " - " + selectedField.getName());
+            Area area = selectedField.getArea();
+            fieldLocationList.setListData(area.getCoordList().toArray());
+            getPlotList();
+            viewFieldDialog.setVisible(true);
+        }
+    }//GEN-LAST:event_btnViewFieldActionPerformed
+
+    private void txtFieldLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldLocationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldLocationActionPerformed
+
+    private void btnAddPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPlotActionPerformed
+        plotCoords = new DefaultListModel();
+        plotCoordList.setModel(plotCoords);
+        addPlotDialog.setVisible(true);
+    }//GEN-LAST:event_btnAddPlotActionPerformed
+
+    private void btnRemovePlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePlotActionPerformed
+        if ((!plotList.isSelectionEmpty()) && (!plotList.isSelectionEmpty()))
+        {
+            selectedField.getPlots().removePlot(selectedPlot);
+            getPlotList();
+        }
+    }//GEN-LAST:event_btnRemovePlotActionPerformed
+
+    private void btnViewPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPlotActionPerformed
+        if ((!plotList.isSelectionEmpty()) && (!plotList.isSelectionEmpty()))
+        {
+            viewPlotDialog.setVisible(true);
+        }
+    }//GEN-LAST:event_btnViewPlotActionPerformed
+
+    private void plotListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotListMouseClicked
+        setSelectedPlot();
+    }//GEN-LAST:event_plotListMouseClicked
+
+    private void btnAddPlotCoordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPlotCoordsActionPerformed
+        plotCoords.addElement(txtPlotLocation.getText());
+        txtPlotLocation.setText("");
+        txtPlotLocation.grabFocus();
+        plotCoordList.setModel(plotCoords);
+    }//GEN-LAST:event_btnAddPlotCoordsActionPerformed
+
+    private void txtPlotLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlotLocationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPlotLocationActionPerformed
+
+    private void btnPlotDialogAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlotDialogAddActionPerformed
+        newPlot();
+    }//GEN-LAST:event_btnPlotDialogAddActionPerformed
+
+    private void btnPlotDialogCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlotDialogCancelActionPerformed
+        addPlotDialog.dispose();
+    }//GEN-LAST:event_btnPlotDialogCancelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog addFarmDialog;
     private javax.swing.JDialog addFieldDialog;
+    private javax.swing.JDialog addPlotDialog;
     private javax.swing.JButton btnAddFarm;
     private javax.swing.JButton btnAddFarmCoords;
     private javax.swing.JButton btnAddField;
     private javax.swing.JButton btnAddFieldCoords;
+    private javax.swing.JButton btnAddPlot;
+    private javax.swing.JButton btnAddPlotCoords;
     private javax.swing.JButton btnDeleteFarm;
     private javax.swing.JButton btnDeleteField;
     private javax.swing.JButton btnFarmDialogAdd;
@@ -550,26 +983,57 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private javax.swing.JButton btnFieldDialogAdd;
     private javax.swing.JButton btnFieldDialogCancel;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnPlotDialogAdd;
+    private javax.swing.JButton btnPlotDialogCancel;
+    private javax.swing.JButton btnRemovePlot;
+    private javax.swing.JButton btnViewFarm;
+    private javax.swing.JButton btnViewField;
+    private javax.swing.JButton btnViewPlot;
+    private javax.swing.JComboBox<String> cmbPlotState;
     private javax.swing.JList<String> farmCoordList;
     private javax.swing.JList farmList;
+    private javax.swing.JList farmLocationList;
     private javax.swing.JList<String> fieldCoordList;
     private javax.swing.JList fieldList;
+    private javax.swing.JList fieldLocationList;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JLabel lblFarmName;
+    private javax.swing.JLabel lblFieldName;
     private javax.swing.JLabel lblFields;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JList<String> plotCoordList;
+    private javax.swing.JList plotList;
     private javax.swing.JTextField txtFarmLocation;
     private javax.swing.JTextField txtFarmName;
     private javax.swing.JTextField txtFieldLocation;
     private javax.swing.JTextField txtFieldName;
+    private javax.swing.JTextField txtPlotCrop;
+    private javax.swing.JTextField txtPlotLocation;
+    private javax.swing.JTextField txtPlotName;
+    private javax.swing.JDialog viewFarmDialog;
+    private javax.swing.JDialog viewFieldDialog;
+    private javax.swing.JDialog viewPlotDialog;
     // End of variables declaration//GEN-END:variables
 }

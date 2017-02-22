@@ -16,6 +16,25 @@ public class Plot
     private PlotState plotState;
     private Crop currentCrop;
     private PlotHistoryList history;
+    private String name;
+    
+    public Plot(String name, Area area, PlotState plotState, Crop currentCrop)
+    {
+        this.name = name;
+        this.area = area;
+        this.plotState = plotState;
+        this.currentCrop = currentCrop;
+    }
+    
+    public String toString()
+    {
+        return name;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
     
     public void newHarvest()
     {

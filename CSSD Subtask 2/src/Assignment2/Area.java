@@ -18,5 +18,9 @@ public class Area
         this.gpsPoints = gpsPoints;
     }
     
+    public GPSCoordList getCoordList()
+    {
+        return gpsPoints;
+    }
     //public boolean isInArea(location){} //not sure what this function does...
 }

@@ -29,7 +29,7 @@ public class Core
         server.registerUser(account2);
         server.registerUser(account3);
         
-        //testing GPS/AREAS/FARMS
+        //set up data
         GPSCoord location1 = new GPSCoord(53.378480, -1.429769);
         GPSCoord location2 = new GPSCoord(53.378051, -1.429769);
         GPSCoord location3 = new GPSCoord(53.378096, -1.428911);
@@ -46,6 +46,12 @@ public class Core
         
         Field field1 = new Field(area, "North Field");
         Field field2 = new Field(area, "South Field");
+        
+        Crop crop = new Crop("Corn");
+        Plot plot = new Plot("North Plot", area, PlotState.PLANTED, crop);
+        
+        field1.getPlots().add(plot);
+        field2.getPlots().add(plot);
         
         farm1.getFields().add(field1); //add field to farm
         farm1.getFields().add(field2); //add field to farm
