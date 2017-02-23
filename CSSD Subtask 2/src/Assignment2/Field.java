@@ -16,6 +16,7 @@ public class Field implements Serializable
     private Area area;
     private PlotList plots = new PlotList();
     private String name;
+    private FieldStation fieldStation = new FieldStation(null, null, null, null);
     
     public Field(Area area, String name)
     {
@@ -27,6 +28,16 @@ public class Field implements Serializable
     {
         return plot;
     }*/
+    
+    public void setFieldStation(FieldStation fieldStation)
+    {
+        this.fieldStation = fieldStation;
+    }
+    
+    public FieldStation getFieldStation()
+    {
+        return fieldStation;
+    }
     
     public String toString(){
         return name;

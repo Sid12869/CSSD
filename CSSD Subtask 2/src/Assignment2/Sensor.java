@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Sensor implements Serializable
 {
-    private GPSCoordList location;
+    private GPSCoord location;
     private boolean enabled;
     private long frequency;
     private Date lastCheck;
@@ -22,18 +22,24 @@ public class Sensor implements Serializable
     private SensorReader sensorReader;
     private FieldStation fieldStation;
     
-    public Sensor(GPSCoordList location, boolean enabled, long frequency, FieldStation fieldStation)
+    public Sensor(GPSCoord location, boolean enabled, long frequency, SensorType sensorType)
     {
         this.location = location;
         this.enabled = enabled;
         this.frequency = frequency;
-        this.fieldStation = fieldStation;
+        this.sensorType = sensorType;
     }
     
     public void updateSensorConfig(boolean enabled, long frequency)
     {
         this.enabled = enabled;
         this.frequency = frequency;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return sensorType.name() + ", " + location.toString();
     }
     
     public boolean requiresUpdate()

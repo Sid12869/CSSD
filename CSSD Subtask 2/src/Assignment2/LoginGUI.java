@@ -129,7 +129,7 @@ public class LoginGUI extends javax.swing.JFrame
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
-        User user = Core.server.getUserList().authenticate(txtUsername.getText(), txtPassword.getText());
+        User user = Main.server.getUserList().authenticate(txtUsername.getText(), txtPassword.getText());
         if(user != null)
         {
             UserGUI gui =  new UserGUI(user);

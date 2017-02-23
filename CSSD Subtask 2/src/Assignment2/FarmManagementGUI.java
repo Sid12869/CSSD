@@ -288,7 +288,6 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFarmDialog.setAlwaysOnTop(true);
         addFarmDialog.setMinimumSize(new java.awt.Dimension(280, 340));
         addFarmDialog.setModal(true);
-        addFarmDialog.setPreferredSize(new java.awt.Dimension(280, 340));
         addFarmDialog.setResizable(false);
 
         jLabel2.setText("Add New Farm");
@@ -370,7 +369,6 @@ public class FarmManagementGUI extends javax.swing.JFrame
 
         addFieldDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addFieldDialog.setMinimumSize(new java.awt.Dimension(280, 340));
-        addFieldDialog.setPreferredSize(new java.awt.Dimension(280, 340));
         addFieldDialog.setResizable(false);
 
         txtFieldLocation.addActionListener(new java.awt.event.ActionListener() {
@@ -497,7 +495,6 @@ public class FarmManagementGUI extends javax.swing.JFrame
 
         viewFieldDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         viewFieldDialog.setMinimumSize(new java.awt.Dimension(500, 400));
-        viewFieldDialog.setPreferredSize(new java.awt.Dimension(500, 400));
 
         lblFieldName.setText("Field Name");
 
@@ -580,7 +577,6 @@ public class FarmManagementGUI extends javax.swing.JFrame
         );
 
         addPlotDialog.setMinimumSize(new java.awt.Dimension(400, 470));
-        addPlotDialog.setPreferredSize(new java.awt.Dimension(400, 470));
 
         jLabel11.setText("Plot Name:");
 
@@ -692,7 +688,6 @@ public class FarmManagementGUI extends javax.swing.JFrame
         );
 
         viewPlotDialog.setMinimumSize(new java.awt.Dimension(600, 500));
-        viewPlotDialog.setPreferredSize(new java.awt.Dimension(600, 500));
 
         javax.swing.GroupLayout viewPlotDialogLayout = new javax.swing.GroupLayout(viewPlotDialog.getContentPane());
         viewPlotDialog.getContentPane().setLayout(viewPlotDialogLayout);
@@ -790,26 +785,24 @@ public class FarmManagementGUI extends javax.swing.JFrame
                         .addComponent(lblUsername)
                         .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(35, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnAddField)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDeleteField)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnViewField))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFields)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblFields, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnAddFarm)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDeleteFarm)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnViewFarm)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(btnViewFarm))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 30, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -31,17 +31,17 @@ public class Server
         return users;
     }
     
-    public void registerFieldStation(GPSCoordList location, String phoneNo, String setupKey)
-    {
-        FieldStation station = new FieldStation(location, phoneNo, setupKey);
-        registeredFieldStations.add(station);
-    }
+//    public void registerFieldStation(GPSCoordList location, String phoneNo, String setupKey)
+//    {
+//        FieldStation station = new FieldStation(location, phoneNo, setupKey);
+//        registeredFieldStations.add(station);
+//    }
     
-    public void registerSensors(GPSCoordList location, boolean enabled, long frequency, FieldStation station)
-    {
-        Sensor sensor = new Sensor(location, enabled, frequency, station);
-        sensors.add(sensor);
-    }
+//    public void registerSensors(GPSCoordList location, boolean enabled, long frequency, FieldStation station)
+//    {
+//        Sensor sensor = new Sensor(location, enabled, frequency, station);
+//        sensors.add(sensor);
+//    }
     
     public void linkFieldStationToUser(String secretKey)
     {

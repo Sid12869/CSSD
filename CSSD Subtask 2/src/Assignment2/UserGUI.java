@@ -16,7 +16,7 @@ public class UserGUI extends javax.swing.JFrame
     public UserGUI(User user)
     {
         initComponents();
-        this.user = user; //now using a global user in Core.java
+        this.user = user;
         lblGreeting.setText("Hey " + user.getUsername() + ", what would you like to do?" );
     }
 
@@ -29,10 +29,50 @@ public class UserGUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        accessLevelErrorDialog = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        btnDismissAccessError = new javax.swing.JButton();
         lblGreeting = new javax.swing.JLabel();
         btnLogOut = new javax.swing.JButton();
         btnFarmMng = new javax.swing.JButton();
         btnHardwareMng = new javax.swing.JButton();
+
+        accessLevelErrorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        accessLevelErrorDialog.setMinimumSize(new java.awt.Dimension(445, 108));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Error: Only farmers can access hardware management");
+
+        btnDismissAccessError.setText("Dismiss");
+        btnDismissAccessError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDismissAccessErrorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout accessLevelErrorDialogLayout = new javax.swing.GroupLayout(accessLevelErrorDialog.getContentPane());
+        accessLevelErrorDialog.getContentPane().setLayout(accessLevelErrorDialogLayout);
+        accessLevelErrorDialogLayout.setHorizontalGroup(
+            accessLevelErrorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accessLevelErrorDialogLayout.createSequentialGroup()
+                .addGroup(accessLevelErrorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(accessLevelErrorDialogLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(accessLevelErrorDialogLayout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(btnDismissAccessError)))
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        accessLevelErrorDialogLayout.setVerticalGroup(
+            accessLevelErrorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accessLevelErrorDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDismissAccessError)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -50,6 +90,11 @@ public class UserGUI extends javax.swing.JFrame
 
         btnHardwareMng.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnHardwareMng.setText("Hardware Management");
+        btnHardwareMng.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHardwareMngActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,15 +137,33 @@ public class UserGUI extends javax.swing.JFrame
         gui.setVisible(true);
     }//GEN-LAST:event_btnFarmMngActionPerformed
 
+    private void btnHardwareMngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardwareMngActionPerformed
+        if (user.getAccessLevel() == AccessLevel.FARMER){
+            HardwareManagementGUI gui = new HardwareManagementGUI(user);
+            gui.setVisible(true);
+        }
+        else
+        {
+            accessLevelErrorDialog.setVisible(true);
+        }
+    }//GEN-LAST:event_btnHardwareMngActionPerformed
+
+    private void btnDismissAccessErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDismissAccessErrorActionPerformed
+        accessLevelErrorDialog.dispose();
+    }//GEN-LAST:event_btnDismissAccessErrorActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog accessLevelErrorDialog;
+    private javax.swing.JButton btnDismissAccessError;
     private javax.swing.JButton btnFarmMng;
     private javax.swing.JButton btnHardwareMng;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblGreeting;
     // End of variables declaration//GEN-END:variables
 }

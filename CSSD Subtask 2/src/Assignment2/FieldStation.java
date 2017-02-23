@@ -14,8 +14,8 @@ import java.util.Date;
  */
 public class FieldStation implements Serializable
 {
-    private SensorList sensors;
-    private GPSCoordList location;
+    private SensorList sensors = new SensorList();
+    private GPSCoord location;
     //private MobileNetwork mobileNetwork; //not necessary?
     //private UserList users; //not necessary?
     private String uniquePhoneNumber;
@@ -24,12 +24,32 @@ public class FieldStation implements Serializable
     private Date lastSyncTime;
     private FieldClock fieldClock;
     
-    public FieldStation(GPSCoordList location, String uniquePhoneNumber, String setupSecretKey)
+    public FieldStation(GPSCoord location, String uniquePhoneNumber, String setupSecretKey, SensorList sensors)
     {
         this.location = location;
         this.uniquePhoneNumber = uniquePhoneNumber;
         this.setupSecretKey = setupSecretKey;
-        
+        this.sensors = sensors;
+    }
+    
+    public SensorList getSensors()
+    {
+        return sensors;
+    }
+    
+    public GPSCoord getGPSCoord()
+    {
+        return location;
+    }
+    
+    public String getPhoneNumber()
+    {
+        return uniquePhoneNumber;
+    }
+    
+    public String getUniqueCode()
+    {
+        return setupSecretKey;
     }
     
     public void registerStationWithServer()

@@ -9,7 +9,7 @@ package Assignment2;
  *
  * @author Andy
  */
-public class Core 
+public class Main 
 {
     /*
     Server should stay the same as long as the program is running
@@ -20,11 +20,11 @@ public class Core
     //public static User myAccount;
     
     //set up some basic stuff
-    public Core()
+    public Main()
     {
-        User account1 = new User("Group Q", "password", AccessLevel.FOOD_PROCESSOR);
+        User account1 = new User("Group Q", "password", AccessLevel.FARMER);
         User account2 = new User("Sid", "password", AccessLevel.FOOD_PROCESSOR);
-        User account3 = new User("Andy", "password", AccessLevel.FARMER);
+        User account3 = new User("Andy", "password", AccessLevel.FOOD_PROCESSOR);
         server.registerUser(account1);
         server.registerUser(account2);
         server.registerUser(account3);
@@ -46,6 +46,18 @@ public class Core
         
         Field field1 = new Field(area, "North Field");
         Field field2 = new Field(area, "South Field");
+        
+        Sensor sensor1 = new Sensor(location1, true, 60000, SensorType.AIR_TEMPERATURE);
+        Sensor sensor2 = new Sensor(location3, false, 120000, SensorType.AIR_TEMPERATURE);
+        
+        SensorList sensors = new SensorList();
+        sensors.add(sensor1);
+        sensors.add(sensor2);
+        
+        FieldStation fieldStation1 = new FieldStation(location1, "07485767341", "123", sensors);
+        
+        field1.setFieldStation(fieldStation1);
+        field2.setFieldStation(fieldStation1);
         
         Crop crop = new Crop("Corn");
         Plot plot = new Plot("North Plot", area, PlotState.PLANTED, crop);
@@ -69,7 +81,7 @@ public class Core
      */
     public static void main(String args[]) {
         
-        new Core(); //set up core class
+        new Main(); //set up core class
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
