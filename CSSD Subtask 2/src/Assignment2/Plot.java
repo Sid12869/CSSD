@@ -17,6 +17,7 @@ public class Plot
     private Crop currentCrop;
     private PlotHistoryList history;
     private String name;
+    private SensorList sensors = new SensorList();
     
     public Plot(String name, Area area, PlotState plotState, Crop currentCrop)
     {
@@ -29,6 +30,11 @@ public class Plot
     public String toString()
     {
         return name;
+    }
+    
+    public SensorList getSensors()
+    {
+        return sensors;
     }
     
     public String getName()

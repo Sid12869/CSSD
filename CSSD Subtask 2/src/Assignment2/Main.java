@@ -5,6 +5,9 @@
  */
 package Assignment2;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Andy
@@ -16,7 +19,7 @@ public class Main
     Server can be accessed from any GUI class. 
     This is why it is public and static. 
     */
-    public static Server server = new Server();
+    private static Server server = new Server();
     //public static User myAccount;
     
     //set up some basic stuff
@@ -47,23 +50,28 @@ public class Main
         Field field1 = new Field(area, "North Field");
         Field field2 = new Field(area, "South Field");
         
-        Sensor sensor1 = new Sensor(location1, true, 60000, SensorType.AIR_TEMPERATURE);
-        Sensor sensor2 = new Sensor(location3, false, 120000, SensorType.AIR_TEMPERATURE);
         
-        SensorList sensors = new SensorList();
-        sensors.add(sensor1);
-        sensors.add(sensor2);
-        
-        FieldStation fieldStation1 = new FieldStation(location1, "07485767341", "123", sensors);
+        FieldStation fieldStation1 = new FieldStation(location1, "07485767341", "123");
         
         field1.setFieldStation(fieldStation1);
         field2.setFieldStation(fieldStation1);
         
         Crop crop = new Crop("Corn");
-        Plot plot = new Plot("North Plot", area, PlotState.PLANTED, crop);
+        Plot plot1 = new Plot("North Plot", area, PlotState.PLANTED, crop);
+        Plot plot2 = new Plot("South Plot", area, PlotState.SPROUTED, crop);
         
-        field1.getPlots().add(plot);
-        field2.getPlots().add(plot);
+        Sensor sensor1 = new Sensor(location1, true, 1, SensorType.AIR_TEMPERATURE);
+        Sensor sensor2 = new Sensor(location3, true, 1, SensorType.ACIDITY);
+        
+        plot1.getSensors().add(sensor1);
+        plot1.getSensors().add(sensor2);
+        plot2.getSensors().add(sensor1);
+        plot2.getSensors().add(sensor2);
+        
+        field1.getPlots().add(plot1);
+        field1.getPlots().add(plot2);
+        field2.getPlots().add(plot1);
+        field2.getPlots().add(plot2);
         
         farm1.getFields().add(field1); //add field to farm
         farm1.getFields().add(field2); //add field to farm
@@ -110,7 +118,70 @@ public class Main
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginGUI().setVisible(true);
+                FieldClockThread clock = new FieldClockThread();
+                clock.start();
             }
         });
+    }
+    
+    public static Server getServer()
+    {
+        return server;
+    }
+}
+
+class FieldClockThread extends Thread 
+{    
+    User user = null;
+    Farm farm = null;
+    Field field = null;
+    Plot plot = null;
+    Sensor sensor = null;
+    
+    FieldClockThread() 
+    {
+        
+    }
+    
+    @Override
+    public void run() 
+    {
+        do
+        {
+            for (int i = 0; i < Main.getServer().getUserList().size(); i++)
+            {
+                user = Main.getServer().getUserList().get(i);
+                for (int j = 0; j < user.getFarms().size(); j++)
+                {
+                    farm = user.getFarms().get(j);
+                    for (int k = 0; k < farm.getFields().size(); k++)
+                    {
+                        field = farm.getFields().get(k);
+                        for (int l = 0; l < field.getPlots().size(); l++)
+                        {
+                            plot = field.getPlots().get(l);
+                            for (int m = 0; m < plot.getSensors().size(); m++)
+                            {
+                                sensor = plot.getSensors().get(m);
+                                if (sensor.isEnabled() && sensor.requiresUpdate())
+                                {
+                                    //send update...
+                                    //store random sensor data...
+                                }
+                                System.out.println(sensor);
+                            }
+                        }
+                    }
+                }
+            }
+            try 
+            {
+                Thread.sleep(10000);
+            } 
+            catch (InterruptedException ex) 
+            {
+                Logger.getLogger(FieldClockThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }while(true);
     }
 }

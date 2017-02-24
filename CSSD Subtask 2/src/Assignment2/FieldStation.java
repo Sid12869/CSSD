@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class FieldStation implements Serializable
 {
-    private SensorList sensors = new SensorList();
+    //private SensorList sensors = new SensorList(); //moved to Plot.java
     private GPSCoord location;
     //private MobileNetwork mobileNetwork; //not necessary?
     //private UserList users; //not necessary?
@@ -24,17 +24,11 @@ public class FieldStation implements Serializable
     private Date lastSyncTime;
     private FieldClock fieldClock;
     
-    public FieldStation(GPSCoord location, String uniquePhoneNumber, String setupSecretKey, SensorList sensors)
+    public FieldStation(GPSCoord location, String uniquePhoneNumber, String setupSecretKey)
     {
         this.location = location;
         this.uniquePhoneNumber = uniquePhoneNumber;
         this.setupSecretKey = setupSecretKey;
-        this.sensors = sensors;
-    }
-    
-    public SensorList getSensors()
-    {
-        return sensors;
     }
     
     public GPSCoord getGPSCoord()

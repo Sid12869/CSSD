@@ -17,35 +17,9 @@ import javax.swing.JOptionPane;
  * @author Sid
  */
 public class LoginGUI extends javax.swing.JFrame 
-{
-    private static final String ACCOUNTS = "accountDatabase.ser";
-    //private UserList userList = new UserList(); //now stored in Server.java
-    
+{    
     public LoginGUI() 
     {
-        
-        
-//        try
-//        {
-//            serialize(userList, ACCOUNTS);
-//        }
-//        catch (IOException e)
-//        {
-//            System.out.println(e);
-//        }
-//        try
-//        {
-//            userList = (UserList) deserialize(ACCOUNTS);
-//        }
-//        catch (IOException e)
-//        {
-//            System.out.println(e);
-//        }
-//        catch (ClassNotFoundException e)
-//        {
-//            System.out.println(e);
-//        }
-        
         initComponents();
     }
 
@@ -129,7 +103,7 @@ public class LoginGUI extends javax.swing.JFrame
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
-        User user = Main.server.getUserList().authenticate(txtUsername.getText(), txtPassword.getText());
+        User user = Main.getServer().getUserList().authenticate(txtUsername.getText(), txtPassword.getText());
         if(user != null)
         {
             UserGUI gui =  new UserGUI(user);
@@ -141,23 +115,6 @@ public class LoginGUI extends javax.swing.JFrame
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    /*private static void serialize(Object obj, String filename) throws IOException
-    {
-        FileOutputStream out=new FileOutputStream(filename);
-        ObjectOutputStream oos=new ObjectOutputStream(out);
-        oos.writeObject(obj);
-        out.close();
-    }
-    
-    private static Object deserialize(String filename) throws IOException, ClassNotFoundException
-    {
-        FileInputStream in=new FileInputStream(filename);
-        ObjectInputStream ois=new ObjectInputStream(in);
-        Object obj=ois.readObject();
-        in.close();
-        return obj;
-    }*/
-  
 //    /**
 //     * @param args the command line arguments
 //     */

@@ -16,7 +16,7 @@ public class Field implements Serializable
     private Area area;
     private PlotList plots = new PlotList();
     private String name;
-    private FieldStation fieldStation = new FieldStation(null, null, null, null);
+    private FieldStation fieldStation = new FieldStation(null, null, null);
     
     public Field(Area area, String name)
     {
