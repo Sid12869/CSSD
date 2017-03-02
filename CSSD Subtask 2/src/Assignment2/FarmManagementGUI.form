@@ -99,6 +99,9 @@
         <Component class="javax.swing.JTextField" name="txtFarmName">
         </Component>
         <Component class="javax.swing.JTextField" name="txtFarmLocation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="53.378480, -1.429769"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -206,6 +209,9 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="txtFieldLocation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="53.378480, -1.429769"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFieldLocationActionPerformed"/>
           </Events>
@@ -593,13 +599,16 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPlotLocation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="53.378480, -1.429769"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlotLocationActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add new plot co-ordinate (location):"/>
+            <Property name="text" type="java.lang.String" value="Add new plot co-ordinate (location) - example already entered:"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane8">
@@ -681,15 +690,46 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="600" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane9" pref="580" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="500" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane9" min="-2" pref="118" max="-2" attributes="0"/>
+                  <EmptySpace pref="371" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane9">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="sensorDataList">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JList(sensorDataModel)"/>
+                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="FarmManagementGUI_sensorDataList"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
     </Container>
   </NonVisualComponents>
   <SyntheticProperties>

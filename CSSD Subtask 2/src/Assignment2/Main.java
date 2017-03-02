@@ -118,7 +118,7 @@ public class Main
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginGUI().setVisible(true);
-                FieldClockThread clock = new FieldClockThread();
+                FieldClock clock = new FieldClock();
                 clock.start();
             }
         });
@@ -127,61 +127,5 @@ public class Main
     public static Server getServer()
     {
         return server;
-    }
-}
-
-class FieldClockThread extends Thread 
-{    
-    User user = null;
-    Farm farm = null;
-    Field field = null;
-    Plot plot = null;
-    Sensor sensor = null;
-    
-    FieldClockThread() 
-    {
-        
-    }
-    
-    @Override
-    public void run() 
-    {
-        do
-        {
-            for (int i = 0; i < Main.getServer().getUserList().size(); i++)
-            {
-                user = Main.getServer().getUserList().get(i);
-                for (int j = 0; j < user.getFarms().size(); j++)
-                {
-                    farm = user.getFarms().get(j);
-                    for (int k = 0; k < farm.getFields().size(); k++)
-                    {
-                        field = farm.getFields().get(k);
-                        for (int l = 0; l < field.getPlots().size(); l++)
-                        {
-                            plot = field.getPlots().get(l);
-                            for (int m = 0; m < plot.getSensors().size(); m++)
-                            {
-                                sensor = plot.getSensors().get(m);
-                                if (sensor.isEnabled() && sensor.requiresUpdate())
-                                {
-                                    //send update...
-                                    //store random sensor data...
-                                }
-                                System.out.println(sensor);
-                            }
-                        }
-                    }
-                }
-            }
-            try 
-            {
-                Thread.sleep(10000);
-            } 
-            catch (InterruptedException ex) 
-            {
-                Logger.getLogger(FieldClockThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }while(true);
     }
 }

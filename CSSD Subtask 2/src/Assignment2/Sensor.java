@@ -22,6 +22,7 @@ public class Sensor implements Serializable
     private SensorType sensorType;
     private SensorReader sensorReader;
     private FieldStation fieldStation;
+    private SensorDataList sensorData = new SensorDataList();
     
     public Sensor(GPSCoord location, boolean enabled, long frequency, SensorType sensorType)
     {
@@ -66,6 +67,11 @@ public class Sensor implements Serializable
         return sensorType;
     }
     
+    public SensorDataList getSensorDataList()
+    {
+        return sensorData;
+    }
+    
     public boolean requiresUpdate()
     {
         Calendar date = Calendar.getInstance(); //get current date/time
@@ -95,8 +101,20 @@ public class Sensor implements Serializable
         return enabled;
     }
     
-    public void readSensorDataIfRequired()
+    public double readSensorDataIfRequired()
     {
-        //function not defined
+        double data = 0.0;
+        if (sensorType == SensorType.AIR_TEMPERATURE)
+        {
+            AirTempReader airTempReader = new AirTempReader();
+            data = airTempReader.readSensorData();
+        }
+        else if (sensorType == SensorType.ACIDITY)
+        {
+            SoilAcidityReader soilAcidityReader = new SoilAcidityReader();
+            data = soilAcidityReader.readSensorData();
+        }
+        //add other reader types
+        return data;
     }
 }

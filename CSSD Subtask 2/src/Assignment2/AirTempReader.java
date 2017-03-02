@@ -7,13 +7,13 @@ package Assignment2;
 
 /**
  *
- * @author b4028595
+ * @author Andy
  */
-public class SoilAcidityReader extends SensorReader
+public class AirTempReader extends SensorReader
 {
-    //private final SensorType sensorType = SensorType.ACIDITY;
-    private final double maximum = 14;
-    private final double minimum = 0;
+    //private final SensorType sensorType = SensorType.AIR_TEMPERATURE;
+    private final double maximum = 40;
+    private final double minimum = 4;
     
     /**
      *
@@ -23,7 +23,6 @@ public class SoilAcidityReader extends SensorReader
     public double readSensorData()
     {
         double randomNum = minimum + (double)(Math.random() * maximum);
-        
         return randomNum;
     }
 }

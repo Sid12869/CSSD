@@ -119,7 +119,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
     
     public void addSensor()
     {
-        long frequency = (int) txtSensorFrequency.getModel().getValue();
+        int frequency = (int) txtSensorFrequency.getModel().getValue();
         boolean enabled = chkSensorEnabled.isSelected();
         String sensorTypeTxt = cmbSensorType.getSelectedItem().toString();
         SensorType sensorType;
@@ -143,7 +143,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
     
     public void editSensor()
     {
-        long frequency = (long) txtEditSensorFrequency.getModel().getValue();
+        int frequency = (int) txtEditSensorFrequency.getModel().getValue();
         boolean enabled = chkEditSensorEnabled.isSelected();
         String[] coords = txtEditSensorLocation.getText().split(",");
         GPSCoord gps = new GPSCoord(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
@@ -215,6 +215,8 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         lblFieldStation.setText("Field name");
 
         jLabel16.setText("Location (coordinates):");
+
+        txtFieldStationLocation.setText("53.378480, -1.429769");
 
         jLabel17.setText("Phone Number: ");
 
@@ -359,11 +361,13 @@ public class HardwareManagementGUI extends javax.swing.JFrame
 
         jLabel20.setText("Location (coordinates):");
 
+        txtSensorLocation.setText("53.378480, -1.429769");
+
         jLabel21.setText("Type:");
 
         cmbSensorType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Air Temperature", "Pressure", "Soil Moisture", "Acidity", "Soil Temperature", "Light Sensor" }));
 
-        jLabel22.setText("Frequency (mins): ");
+        jLabel22.setText("Frequency (mins, minimum +1): ");
 
         btnSensorAdd.setText("Ok");
         btnSensorAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -436,7 +440,9 @@ public class HardwareManagementGUI extends javax.swing.JFrame
 
         jLabel23.setText("Location (coordinates):");
 
-        jLabel25.setText("Frequency (mins): ");
+        jLabel25.setText("Frequency (mins, minimum +1) : ");
+
+        txtEditSensorFrequency.setValue(1);
 
         btnSensorEdit.setText("Ok");
         btnSensorEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -609,10 +615,22 @@ public class HardwareManagementGUI extends javax.swing.JFrame
     private void btnFieldStationSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFieldStationSetupActionPerformed
         if ((!fieldList.isSelectionEmpty()) && (!fieldList.isSelectionEmpty()))
         {
-            lblFieldStation.setText(selectedField.getName() + " station setup");
-            txtFieldStationLocation.setText(selectedField.getFieldStation().getGPSCoord().toString());
-            txtFieldStationPhone.setText(selectedField.getFieldStation().getPhoneNumber());
-            txtFieldStationCode.setText(selectedField.getFieldStation().getUniqueCode());
+            if (selectedField.getName() != null)
+            {
+                lblFieldStation.setText(selectedField.getName() + " station setup");
+            }
+            if (selectedField.getFieldStation().getGPSCoord() != null)
+            {
+                txtFieldStationLocation.setText(selectedField.getFieldStation().getGPSCoord().toString());
+            }
+            if (selectedField.getFieldStation().getPhoneNumber() != null)
+            {
+                txtFieldStationPhone.setText(selectedField.getFieldStation().getPhoneNumber());
+            }
+            if (selectedField.getFieldStation().getUniqueCode() != null)
+            {
+                txtFieldStationCode.setText(selectedField.getFieldStation().getUniqueCode());
+            }
             fieldStationDialog.setVisible(true);
         }
     }//GEN-LAST:event_btnFieldStationSetupActionPerformed

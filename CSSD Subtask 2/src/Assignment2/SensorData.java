@@ -5,7 +5,7 @@
  */
 package Assignment2;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -13,23 +13,27 @@ import java.util.Date;
  */
 public class SensorData 
 {
-    //private GPSCoordList sensorLoc; //not needed. use Sensor instead:
-    private Sensor sensor;
-    private Date dataTime;
-    private int sensorId;
+    //private GPSCoordList sensorLoc; //not needed. use Sensor instead
+    //private Sensor sensor; //not needed. 
+    private Calendar dataTime = Calendar.getInstance();
+    //private int sensorId; //unneccessary identifier
     private double rawData;
-    private SensorType sensorType;
+    //private SensorType sensorType; //not needed. sensor will already know its type
     
-    public SensorData(Sensor sensor, Date dataTime, double rawData, SensorType sensorType)
+    public SensorData(double rawData)
     {
-        this.sensor = sensor;
-        this.dataTime = dataTime;
         this.rawData = rawData;
-        this.sensorType = sensorType;
     }
     
-    public int getDataRepresentationType()
+    @Override
+    public String toString()
     {
-        return 0;
+        return dataTime.getTime() + " - " + rawData;
     }
+    
+
+    public double getDataRepresentationType()
+    {
+        return rawData;
+    } 
 }

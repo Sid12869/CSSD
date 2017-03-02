@@ -23,6 +23,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
     DefaultListModel farmCoords;
     DefaultListModel fieldCoords;
     DefaultListModel plotCoords;
+    DefaultListModel sensorDataModel = new DefaultListModel();
     
     /**
      * Creates new form FarmList
@@ -88,7 +89,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         for (int i = 0; i < selectedField.getPlots().size(); i++)
         {
             selectedPlot = selectedField.getPlots().get(i);
-            if (selectedPlot.getName().equals(fieldList.getModel().getElementAt(index).toString()))
+            if (selectedPlot.getName().equals(plotList.getModel().getElementAt(index).toString()))
             {
                 break;
             }
@@ -269,6 +270,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
         jLabel15 = new javax.swing.JLabel();
         cmbPlotState = new javax.swing.JComboBox<>();
         viewPlotDialog = new javax.swing.JDialog();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        sensorDataList = new javax.swing.JList(sensorDataModel);
         btnLogout = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         btnAddFarm = new javax.swing.JButton();
@@ -307,6 +310,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
         });
 
         jLabel3.setText("Farm Name:");
+
+        txtFarmLocation.setText("53.378480, -1.429769");
 
         jLabel4.setText("Add new farm co-ordinate (location):");
 
@@ -371,6 +376,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFieldDialog.setMinimumSize(new java.awt.Dimension(280, 340));
         addFieldDialog.setResizable(false);
 
+        txtFieldLocation.setText("53.378480, -1.429769");
         txtFieldLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFieldLocationActionPerformed(evt);
@@ -587,13 +593,14 @@ public class FarmManagementGUI extends javax.swing.JFrame
             }
         });
 
+        txtPlotLocation.setText("53.378480, -1.429769");
         txtPlotLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPlotLocationActionPerformed(evt);
             }
         });
 
-        jLabel12.setText("Add new plot co-ordinate (location):");
+        jLabel12.setText("Add new plot co-ordinate (location) - example already entered:");
 
         jScrollPane8.setViewportView(plotCoordList);
 
@@ -689,15 +696,23 @@ public class FarmManagementGUI extends javax.swing.JFrame
 
         viewPlotDialog.setMinimumSize(new java.awt.Dimension(600, 500));
 
+        jScrollPane9.setViewportView(sensorDataList);
+
         javax.swing.GroupLayout viewPlotDialogLayout = new javax.swing.GroupLayout(viewPlotDialog.getContentPane());
         viewPlotDialog.getContentPane().setLayout(viewPlotDialogLayout);
         viewPlotDialogLayout.setHorizontalGroup(
             viewPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPlotDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addContainerGap())
         );
         viewPlotDialogLayout.setVerticalGroup(
             viewPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(viewPlotDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(371, Short.MAX_VALUE))
         );
 
         btnLogout.setText("Log Out");
@@ -927,10 +942,25 @@ public class FarmManagementGUI extends javax.swing.JFrame
             getPlotList();
         }
     }//GEN-LAST:event_btnRemovePlotActionPerformed
-
+    
     private void btnViewPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPlotActionPerformed
         if ((!plotList.isSelectionEmpty()) && (!plotList.isSelectionEmpty()))
         {
+            sensorDataModel = new DefaultListModel();
+            Sensor sensor;
+            SensorData sensorData;
+            for (int i = 0; i < selectedPlot.getSensors().size(); i++)
+            {
+                sensor = selectedPlot.getSensors().get(i);
+                for (int j = 0; j < sensor.getSensorDataList().size(); j++)
+                {
+                    sensorData = sensor.getSensorDataList().get(j);
+                    //System.out.println(sensorData);
+                    sensorDataModel.addElement(sensorData.toString());
+                    //System.out.println(sensorDataModel.getSize());
+                }
+            }
+            sensorDataList.setModel(sensorDataModel);
             viewPlotDialog.setVisible(true);
         }
     }//GEN-LAST:event_btnViewPlotActionPerformed
@@ -1012,12 +1042,14 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lblFarmName;
     private javax.swing.JLabel lblFieldName;
     private javax.swing.JLabel lblFields;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JList<String> plotCoordList;
     private javax.swing.JList plotList;
+    private javax.swing.JList sensorDataList;
     private javax.swing.JTextField txtFarmLocation;
     private javax.swing.JTextField txtFarmName;
     private javax.swing.JTextField txtFieldLocation;

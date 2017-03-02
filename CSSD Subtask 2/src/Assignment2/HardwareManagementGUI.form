@@ -81,6 +81,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFieldStationLocation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="53.378480, -1.429769"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFieldStationPhone">
         </Component>
@@ -299,6 +302,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSensorLocation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="53.378480, -1.429769"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
@@ -324,7 +330,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel22">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Frequency (mins): "/>
+            <Property name="text" type="java.lang.String" value="Frequency (mins, minimum +1): "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="txtSensorFrequency">
@@ -424,10 +430,15 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel25">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Frequency (mins): "/>
+            <Property name="text" type="java.lang.String" value="Frequency (mins, minimum +1) : "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="txtEditSensorFrequency">
+          <Properties>
+            <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="1" type="code"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnSensorEdit">
           <Properties>
