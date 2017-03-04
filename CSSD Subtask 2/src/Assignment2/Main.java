@@ -60,8 +60,8 @@ public class Main
         Plot plot1 = new Plot("North Plot", area, PlotState.PLANTED, crop);
         Plot plot2 = new Plot("South Plot", area, PlotState.SPROUTED, crop);
         
-        Sensor sensor1 = new Sensor(location1, true, 1, SensorType.AIR_TEMPERATURE);
-        Sensor sensor2 = new Sensor(location3, true, 1, SensorType.ACIDITY);
+        Sensor sensor1 = new Sensor(location1, true, 10, SensorType.AIR_TEMPERATURE);
+        Sensor sensor2 = new Sensor(location3, true, 10, SensorType.ACIDITY);
         
         plot1.getSensors().add(sensor1);
         plot1.getSensors().add(sensor2);

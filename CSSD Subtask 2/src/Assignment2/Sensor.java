@@ -78,7 +78,7 @@ public class Sensor implements Serializable
         Calendar nextUpdate = Calendar.getInstance(lastCheck.getTimeZone()); //get copy of lastCheck
         
         nextUpdate.setTime(lastCheck.getTime()); //get copy of lastCheck
-        nextUpdate.add(Calendar.MINUTE, (int) frequency); //add frequency to lastCheck
+        nextUpdate.add(Calendar.SECOND, (int) frequency); //add frequency to lastCheck, would normally add as minute (not second), but for demo purposes
         if (date.after(nextUpdate)) 
         {
             //if nextUpdate has passed the current time then return true
@@ -114,7 +114,26 @@ public class Sensor implements Serializable
             SoilAcidityReader soilAcidityReader = new SoilAcidityReader();
             data = soilAcidityReader.readSensorData();
         }
-        //add other reader types
+        else if (sensorType == SensorType.PRESSURE)
+        {
+            PressureReader pressureReader = new PressureReader();
+            data = pressureReader.readSensorData();
+        }
+        else if (sensorType == SensorType.LIGHT_SENSOR)
+        {
+            LightSensorReader lightSensorReader = new LightSensorReader();
+            data = lightSensorReader.readSensorData();
+        }
+        else if (sensorType == SensorType.SOIL_MOISTURE)
+        {
+            SoilAcidityReader soilMoistureReader = new SoilAcidityReader();
+            data = soilMoistureReader.readSensorData();
+        }
+        else if (sensorType == SensorType.SOIL_TEMPERATURE)
+        {
+            SoilTempReader soilTempReader = new SoilTempReader();
+            data = soilTempReader.readSensorData();
+        }
         return data;
     }
 }

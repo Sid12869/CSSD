@@ -6,6 +6,7 @@
 package Assignment2;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -31,6 +32,10 @@ public class SensorData
         return dataTime.getTime() + " - " + rawData;
     }
     
+    public Date getTime()
+    {
+        return dataTime.getTime();
+    }
 
     public double getDataRepresentationType()
     {

@@ -119,7 +119,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
     
     public void addSensor()
     {
-        int frequency = (int) txtSensorFrequency.getModel().getValue();
+        long frequency = (int) txtSensorFrequency.getModel().getValue();
         boolean enabled = chkSensorEnabled.isSelected();
         String sensorTypeTxt = cmbSensorType.getSelectedItem().toString();
         SensorType sensorType;
@@ -132,6 +132,10 @@ public class HardwareManagementGUI extends javax.swing.JFrame
                      break;
             case "Acidity":  sensorType = SensorType.ACIDITY;
                      break;
+            case "Light Sensor":  sensorType = SensorType.LIGHT_SENSOR;
+                     break;
+            case "Soil Temperature":  sensorType = SensorType.SOIL_TEMPERATURE;
+                     break;
             default: sensorType = SensorType.AIR_TEMPERATURE;
                      break;
         }
@@ -143,7 +147,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
     
     public void editSensor()
     {
-        int frequency = (int) txtEditSensorFrequency.getModel().getValue();
+        long frequency = (int) txtEditSensorFrequency.getModel().getValue();
         boolean enabled = chkEditSensorEnabled.isSelected();
         String[] coords = txtEditSensorLocation.getText().split(",");
         GPSCoord gps = new GPSCoord(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
@@ -685,7 +689,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         {
             editSensorDialog.setVisible(true);
             txtEditSensorLocation.setText(selectedSensor.getCoord().toString());
-            txtEditSensorFrequency.setValue(selectedSensor.getFrequency());
+            txtEditSensorFrequency.setValue((int) selectedSensor.getFrequency());
             chkEditSensorEnabled.setSelected(selectedSensor.isEnabled());
         }
     }//GEN-LAST:event_btnEditSensorActionPerformed

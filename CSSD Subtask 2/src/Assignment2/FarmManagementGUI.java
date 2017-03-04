@@ -5,7 +5,17 @@
  */
 package Assignment2;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import javax.swing.DefaultListModel;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -23,7 +33,13 @@ public class FarmManagementGUI extends javax.swing.JFrame
     DefaultListModel farmCoords;
     DefaultListModel fieldCoords;
     DefaultListModel plotCoords;
-    DefaultListModel sensorDataModel = new DefaultListModel();
+    
+    DefaultListModel airTempDataModel = new DefaultListModel();
+    DefaultListModel pressureDataModel = new DefaultListModel();
+    DefaultListModel soilTempDataModel = new DefaultListModel();
+    DefaultListModel soilAcidityDataModel = new DefaultListModel();
+    DefaultListModel soilMoistureDataModel = new DefaultListModel();
+    DefaultListModel lightDataModel = new DefaultListModel();
     
     /**
      * Creates new form FarmList
@@ -270,8 +286,37 @@ public class FarmManagementGUI extends javax.swing.JFrame
         jLabel15 = new javax.swing.JLabel();
         cmbPlotState = new javax.swing.JComboBox<>();
         viewPlotDialog = new javax.swing.JDialog();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        sensorDataList = new javax.swing.JList(sensorDataModel);
+        airTempDataList = new javax.swing.JList(airTempDataModel);
+        jLabel16 = new javax.swing.JLabel();
+        btnAirTempChart = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btnPressureChart = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        pressureDataList = new javax.swing.JList(pressureDataModel);
+        jLabel17 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        btnSoilMoistureChart = new javax.swing.JButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        soilMoistureDataList = new javax.swing.JList(pressureDataModel);
+        jLabel18 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        btnSoilTempChart = new javax.swing.JButton();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        soilTempDataList = new javax.swing.JList(pressureDataModel);
+        jLabel19 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        btnAcidityChart = new javax.swing.JButton();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        acidityDataList = new javax.swing.JList(pressureDataModel);
+        jLabel20 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        btnLightChart = new javax.swing.JButton();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        lightDataList = new javax.swing.JList(pressureDataModel);
+        jLabel21 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         btnAddFarm = new javax.swing.JButton();
@@ -694,25 +739,271 @@ public class FarmManagementGUI extends javax.swing.JFrame
                 .addContainerGap(83, Short.MAX_VALUE))
         );
 
-        viewPlotDialog.setMinimumSize(new java.awt.Dimension(600, 500));
+        viewPlotDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        viewPlotDialog.setMinimumSize(new java.awt.Dimension(600, 420));
+        viewPlotDialog.setPreferredSize(new java.awt.Dimension(600, 420));
 
-        jScrollPane9.setViewportView(sensorDataList);
+        jScrollPane9.setViewportView(airTempDataList);
+
+        jLabel16.setText("List of data for plot:");
+
+        btnAirTempChart.setText("Generate chart for data");
+        btnAirTempChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAirTempChartActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAirTempChart))
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAirTempChart)
+                .addGap(23, 23, 23))
+        );
+
+        jTabbedPane1.addTab("Air Temperature", jPanel1);
+
+        btnPressureChart.setText("Generate chart for data");
+        btnPressureChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPressureChartActionPerformed(evt);
+            }
+        });
+
+        jScrollPane10.setViewportView(pressureDataList);
+
+        jLabel17.setText("List of data for plot:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPressureChart))
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPressureChart)
+                .addGap(23, 23, 23))
+        );
+
+        jTabbedPane1.addTab("Pressure", jPanel2);
+
+        btnSoilMoistureChart.setText("Generate chart for data");
+        btnSoilMoistureChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoilMoistureChartActionPerformed(evt);
+            }
+        });
+
+        jScrollPane11.setViewportView(soilMoistureDataList);
+
+        jLabel18.setText("List of data for plot:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSoilMoistureChart))
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSoilMoistureChart)
+                .addGap(23, 23, 23))
+        );
+
+        jTabbedPane1.addTab("Soil Moisture", jPanel3);
+
+        btnSoilTempChart.setText("Generate chart for data");
+        btnSoilTempChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoilTempChartActionPerformed(evt);
+            }
+        });
+
+        jScrollPane12.setViewportView(soilTempDataList);
+
+        jLabel19.setText("List of data for plot:");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSoilTempChart))
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSoilTempChart)
+                .addGap(23, 23, 23))
+        );
+
+        jTabbedPane1.addTab("Soil Temperature", jPanel4);
+
+        btnAcidityChart.setText("Generate chart for data");
+        btnAcidityChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcidityChartActionPerformed(evt);
+            }
+        });
+
+        jScrollPane13.setViewportView(acidityDataList);
+
+        jLabel20.setText("List of data for plot:");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAcidityChart))
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAcidityChart)
+                .addGap(23, 23, 23))
+        );
+
+        jTabbedPane1.addTab("Soil Acidity", jPanel5);
+
+        btnLightChart.setText("Generate chart for data");
+        btnLightChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLightChartActionPerformed(evt);
+            }
+        });
+
+        jScrollPane14.setViewportView(lightDataList);
+
+        jLabel21.setText("List of data for plot:");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnLightChart))
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLightChart)
+                .addGap(23, 23, 23))
+        );
+
+        jTabbedPane1.addTab("Light", jPanel6);
 
         javax.swing.GroupLayout viewPlotDialogLayout = new javax.swing.GroupLayout(viewPlotDialog.getContentPane());
         viewPlotDialog.getContentPane().setLayout(viewPlotDialogLayout);
         viewPlotDialogLayout.setHorizontalGroup(
             viewPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPlotDialogLayout.createSequentialGroup()
+            .addGroup(viewPlotDialogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         viewPlotDialogLayout.setVerticalGroup(
             viewPlotDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewPlotDialogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(371, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         btnLogout.setText("Log Out");
@@ -946,7 +1237,13 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private void btnViewPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPlotActionPerformed
         if ((!plotList.isSelectionEmpty()) && (!plotList.isSelectionEmpty()))
         {
-            sensorDataModel = new DefaultListModel();
+            airTempDataModel = new DefaultListModel();
+            pressureDataModel = new DefaultListModel();
+            soilTempDataModel = new DefaultListModel();
+            soilAcidityDataModel = new DefaultListModel();
+            soilMoistureDataModel = new DefaultListModel();
+            lightDataModel = new DefaultListModel();
+            
             Sensor sensor;
             SensorData sensorData;
             for (int i = 0; i < selectedPlot.getSensors().size(); i++)
@@ -955,12 +1252,38 @@ public class FarmManagementGUI extends javax.swing.JFrame
                 for (int j = 0; j < sensor.getSensorDataList().size(); j++)
                 {
                     sensorData = sensor.getSensorDataList().get(j);
-                    //System.out.println(sensorData);
-                    sensorDataModel.addElement(sensorData.toString());
-                    //System.out.println(sensorDataModel.getSize());
+                    if (sensor.getSensorType() == SensorType.AIR_TEMPERATURE)
+                    {
+                        airTempDataModel.addElement(sensorData.toString());
+                    }
+                    else if(sensor.getSensorType() == SensorType.PRESSURE)
+                    {
+                        pressureDataModel.addElement(sensorData.toString());
+                    }
+                    else if(sensor.getSensorType() == SensorType.SOIL_TEMPERATURE)
+                    {
+                        soilTempDataModel.addElement(sensorData.toString());
+                    }
+                    else if(sensor.getSensorType() == SensorType.ACIDITY)
+                    {
+                        soilAcidityDataModel.addElement(sensorData.toString());
+                    }
+                    else if(sensor.getSensorType() == SensorType.SOIL_MOISTURE)
+                    {
+                        soilMoistureDataModel.addElement(sensorData.toString());
+                    }
+                    else if(sensor.getSensorType() == SensorType.LIGHT_SENSOR)
+                    {
+                        lightDataModel.addElement(sensorData.toString());
+                    }
                 }
             }
-            sensorDataList.setModel(sensorDataModel);
+            airTempDataList.setModel(airTempDataModel);
+            pressureDataList.setModel(pressureDataModel);
+            soilTempDataList.setModel(soilTempDataModel);
+            acidityDataList.setModel(soilAcidityDataModel);
+            soilMoistureDataList.setModel(soilMoistureDataModel);
+            lightDataList.setModel(lightDataModel);
             viewPlotDialog.setVisible(true);
         }
     }//GEN-LAST:event_btnViewPlotActionPerformed
@@ -988,27 +1311,222 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addPlotDialog.dispose();
     }//GEN-LAST:event_btnPlotDialogCancelActionPerformed
 
+    private void btnAirTempChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAirTempChartActionPerformed
+        XYSeries signal = new XYSeries("amount");
+        XYSeriesCollection dataset = new XYSeriesCollection(signal);
+
+        JFrame f = new JFrame(selectedPlot.getName() + " air temperature chart");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset);
+        f.add(new ChartPanel(chart));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        signal.clear();
+        Sensor sensor;
+        SensorData sensorData;
+        for (int i = 0; i < selectedPlot.getSensors().size(); i++)
+        {
+            sensor = selectedPlot.getSensors().get(i);
+            if (sensor.getSensorType() == SensorType.AIR_TEMPERATURE)
+            {
+                for (int j = 0; j < sensor.getSensorDataList().size(); j++)
+                {
+                    sensorData = sensor.getSensorDataList().get(j);
+
+                    signal.add(j, sensorData.getDataRepresentationType());
+                }
+            }
+        }
+
+        f.add(p, BorderLayout.SOUTH);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnAirTempChartActionPerformed
+
+    private void btnPressureChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPressureChartActionPerformed
+        XYSeries signal = new XYSeries("amount");
+        XYSeriesCollection dataset = new XYSeriesCollection(signal);
+
+        JFrame f = new JFrame(selectedPlot.getName() + " pressure sensor chart");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset);
+        f.add(new ChartPanel(chart));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        signal.clear();
+        Sensor sensor;
+        SensorData sensorData;
+        for (int i = 0; i < selectedPlot.getSensors().size(); i++)
+        {
+            sensor = selectedPlot.getSensors().get(i);
+            if (sensor.getSensorType() == SensorType.PRESSURE)
+            {
+                for (int j = 0; j < sensor.getSensorDataList().size(); j++)
+                {
+                    sensorData = sensor.getSensorDataList().get(j);
+                    signal.add(j, sensorData.getDataRepresentationType());
+                }
+            }
+        }
+
+        f.add(p, BorderLayout.SOUTH);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnPressureChartActionPerformed
+
+    private void btnSoilMoistureChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoilMoistureChartActionPerformed
+        XYSeries signal = new XYSeries("amount");
+        XYSeriesCollection dataset = new XYSeriesCollection(signal);
+
+        JFrame f = new JFrame(selectedPlot.getName() + " soil moisture sensor chart");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset);
+        f.add(new ChartPanel(chart));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        signal.clear();
+        Sensor sensor;
+        SensorData sensorData;
+        for (int i = 0; i < selectedPlot.getSensors().size(); i++)
+        {
+            sensor = selectedPlot.getSensors().get(i);
+            if (sensor.getSensorType() == SensorType.SOIL_MOISTURE)
+            {
+                for (int j = 0; j < sensor.getSensorDataList().size(); j++)
+                {
+                    sensorData = sensor.getSensorDataList().get(j);
+                    signal.add(j, sensorData.getDataRepresentationType());
+                }
+            }
+        }
+
+        f.add(p, BorderLayout.SOUTH);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnSoilMoistureChartActionPerformed
+
+    private void btnSoilTempChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoilTempChartActionPerformed
+        XYSeries signal = new XYSeries("amount");
+        XYSeriesCollection dataset = new XYSeriesCollection(signal);
+
+        JFrame f = new JFrame(selectedPlot.getName() + " soil temperature sensor chart");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset);
+        f.add(new ChartPanel(chart));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        signal.clear();
+        Sensor sensor;
+        SensorData sensorData;
+        for (int i = 0; i < selectedPlot.getSensors().size(); i++)
+        {
+            sensor = selectedPlot.getSensors().get(i);
+            if (sensor.getSensorType() == SensorType.SOIL_TEMPERATURE)
+            {
+                for (int j = 0; j < sensor.getSensorDataList().size(); j++)
+                {
+                    sensorData = sensor.getSensorDataList().get(j);
+                    signal.add(j, sensorData.getDataRepresentationType());
+                }
+            }
+        }
+
+        f.add(p, BorderLayout.SOUTH);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnSoilTempChartActionPerformed
+
+    private void btnAcidityChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcidityChartActionPerformed
+        XYSeries signal = new XYSeries("amount");
+        XYSeriesCollection dataset = new XYSeriesCollection(signal);
+
+        JFrame f = new JFrame(selectedPlot.getName() + " soil acidity sensor chart");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset);
+        f.add(new ChartPanel(chart));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        signal.clear();
+        Sensor sensor;
+        SensorData sensorData;
+        for (int i = 0; i < selectedPlot.getSensors().size(); i++)
+        {
+            sensor = selectedPlot.getSensors().get(i);
+            if (sensor.getSensorType() == SensorType.ACIDITY)
+            {
+                for (int j = 0; j < sensor.getSensorDataList().size(); j++)
+                {
+                    sensorData = sensor.getSensorDataList().get(j);
+                    signal.add(j, sensorData.getDataRepresentationType());
+                }
+            }
+        }
+
+        f.add(p, BorderLayout.SOUTH);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnAcidityChartActionPerformed
+
+    private void btnLightChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLightChartActionPerformed
+        XYSeries signal = new XYSeries("amount");
+        XYSeriesCollection dataset = new XYSeriesCollection(signal);
+
+        JFrame f = new JFrame(selectedPlot.getName() + " light sensor chart");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset);
+        f.add(new ChartPanel(chart));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        signal.clear();
+        Sensor sensor;
+        SensorData sensorData;
+        for (int i = 0; i < selectedPlot.getSensors().size(); i++)
+        {
+            sensor = selectedPlot.getSensors().get(i);
+            if (sensor.getSensorType() == SensorType.LIGHT_SENSOR)
+            {
+                for (int j = 0; j < sensor.getSensorDataList().size(); j++)
+                {
+                    sensorData = sensor.getSensorDataList().get(j);
+                    signal.add(j, sensorData.getDataRepresentationType());
+                }
+            }
+        }
+
+        f.add(p, BorderLayout.SOUTH);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnLightChartActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList acidityDataList;
     private javax.swing.JDialog addFarmDialog;
     private javax.swing.JDialog addFieldDialog;
     private javax.swing.JDialog addPlotDialog;
+    private javax.swing.JList airTempDataList;
+    private javax.swing.JButton btnAcidityChart;
     private javax.swing.JButton btnAddFarm;
     private javax.swing.JButton btnAddFarmCoords;
     private javax.swing.JButton btnAddField;
     private javax.swing.JButton btnAddFieldCoords;
     private javax.swing.JButton btnAddPlot;
     private javax.swing.JButton btnAddPlotCoords;
+    private javax.swing.JButton btnAirTempChart;
     private javax.swing.JButton btnDeleteFarm;
     private javax.swing.JButton btnDeleteField;
     private javax.swing.JButton btnFarmDialogAdd;
     private javax.swing.JButton btnFarmDialogCancel;
     private javax.swing.JButton btnFieldDialogAdd;
     private javax.swing.JButton btnFieldDialogCancel;
+    private javax.swing.JButton btnLightChart;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPlotDialogAdd;
     private javax.swing.JButton btnPlotDialogCancel;
+    private javax.swing.JButton btnPressureChart;
     private javax.swing.JButton btnRemovePlot;
+    private javax.swing.JButton btnSoilMoistureChart;
+    private javax.swing.JButton btnSoilTempChart;
     private javax.swing.JButton btnViewFarm;
     private javax.swing.JButton btnViewField;
     private javax.swing.JButton btnViewPlot;
@@ -1026,7 +1544,13 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1034,7 +1558,18 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1043,13 +1578,17 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblFarmName;
     private javax.swing.JLabel lblFieldName;
     private javax.swing.JLabel lblFields;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JList lightDataList;
     private javax.swing.JList<String> plotCoordList;
     private javax.swing.JList plotList;
-    private javax.swing.JList sensorDataList;
+    private javax.swing.JList pressureDataList;
+    private javax.swing.JList soilMoistureDataList;
+    private javax.swing.JList soilTempDataList;
     private javax.swing.JTextField txtFarmLocation;
     private javax.swing.JTextField txtFarmName;
     private javax.swing.JTextField txtFieldLocation;

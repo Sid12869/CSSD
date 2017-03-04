@@ -60,7 +60,7 @@ class FieldClock extends Thread
             }
             try 
             {
-                Thread.sleep(60000);
+                Thread.sleep(5000); //set to 5 seconds, realistically would be 60 seconds, but for demo purposes.
             } 
             catch (InterruptedException ex) 
             {
