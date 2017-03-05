@@ -8,7 +8,7 @@ package Assignment2;
 import java.util.ArrayList;
 
 /**
- *
+ * An ArrayList of Sensor objects.
  * @author Andy
  */
 public class SensorList extends ArrayList<Sensor> 

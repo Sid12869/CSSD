@@ -8,7 +8,8 @@ package Assignment2;
 import java.util.ArrayList;
 
 /**
- *
+ * An ArrayList of Field objects.
+ * 
  * @author Andy
  */
 public class FieldList extends ArrayList<Field>

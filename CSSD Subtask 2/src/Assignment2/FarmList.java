@@ -8,7 +8,8 @@ package Assignment2;
 import java.util.ArrayList;
 
 /**
- *
+ * An ArrayList of Farm objects. 
+ * 
  * @author Andy
  */
 public class FarmList extends ArrayList<Farm> 

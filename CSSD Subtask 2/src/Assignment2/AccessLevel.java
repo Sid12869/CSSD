@@ -6,7 +6,8 @@
 package Assignment2;
 
 /**
- *
+ * User access levels - FOOD_PROCESSOR is not allowed to view hardware 
+ * management
  * @author Andy
  */
 public enum AccessLevel 

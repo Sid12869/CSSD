@@ -8,7 +8,10 @@ package Assignment2;
 import java.util.ArrayList;
 
 /**
- *
+ * An ArrayList of User objects. 
+ * Has a method to return a User object based on correct username and password
+ * credentials. 
+ * 
  * @author Sid
  */
 public class UserList extends ArrayList<User> {

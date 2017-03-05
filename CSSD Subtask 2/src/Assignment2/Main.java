@@ -5,11 +5,16 @@
  */
 package Assignment2;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
- *
+ * This is where the application starts, where the main() function is. 
+ * It holds the Server, which is static, meaning it needs to only be created
+ * once throughout the program. 
+ * The Main() constructor sets up some basic data for the program including
+ * 3 accounts, a list of GPSCoords to create an Area for 2 farms, 2 fields,
+ * 2 plots, and sets up FieldStation classes for each Field and adds each class
+ * to its appropriate list class within the appropriate objects. 
+ * This is also where the FieldClock thread is set up and starts its loop.
+ * 
  * @author Andy
  */
 public class Main 

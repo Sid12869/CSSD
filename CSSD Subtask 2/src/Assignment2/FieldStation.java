@@ -9,15 +9,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
+ * FieldStation for each Field object.
+ * 
  * @author Andy
  */
 public class FieldStation implements Serializable
 {
-    //private SensorList sensors = new SensorList(); //moved to Plot.java
     private GPSCoord location;
-    //private MobileNetwork mobileNetwork; //not necessary?
-    //private UserList users; //not necessary?
     private String uniquePhoneNumber;
     private String setupSecretKey;
     private SensorDataList sensorData;
@@ -46,28 +44,10 @@ public class FieldStation implements Serializable
         return setupSecretKey;
     }
     
-    public void registerStationWithServer()
-    {
-        //function not defined
-    }
-    
-    public void detectSensors()
-    {
-        //function not defined
-    }
-    
-//    public Sensor findSensor(GPSCoordList location)
-//    {
-//        return aSensorFromSensorList;
-//    }
-    
-    public void sendDataToServer()
-    {
-        //function not defined
-    }
-    
-    public void addDataToSyncList(SensorData sensorData)
-    {
-        //function not defined
-    }
+    //Undefined functions, shown in class diagram but not needed/implemented
+    //public void registerStationWithServer(){} //function not defined
+    //public void detectSensors(){} //function not defined
+    //public Sensor findSensor(GPSCoordList location){return aSensorFromSensorList;} //function not defined
+    //public void sendDataToServer(){} //function not defined
+    //public void addDataToSyncList(SensorData sensorData){} //function not defined
 }

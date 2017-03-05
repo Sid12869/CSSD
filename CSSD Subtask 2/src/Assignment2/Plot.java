@@ -6,16 +6,18 @@
 package Assignment2;
 
 /**
- *
+ * Each Field has a list of Plot objects. 
+ * Each Plot holds an Area, Crop, PlotState, list of sensors and list of 
+ * sensor data. 
+ * 
  * @author Andy
  */
 public class Plot 
 {
     private Area area;
-    private SensorDataList sensorData;
     private PlotState plotState;
     private Crop currentCrop;
-    private PlotHistoryList history;
+    //private PlotHistoryList history; //not used
     private String name;
     private SensorList sensors = new SensorList();
     
@@ -27,6 +29,7 @@ public class Plot
         this.currentCrop = currentCrop;
     }
     
+    @Override
     public String toString()
     {
         return name;
@@ -42,13 +45,6 @@ public class Plot
         return name;
     }
     
-    public void newHarvest()
-    {
-        //function not defined
-    }
-    
-    public void plotHarvested()
-    {
-        //function not defined
-    }
+    //public void newHarvest(){} //function not defined
+    //public void plotHarvested(){} //function not defined
 }

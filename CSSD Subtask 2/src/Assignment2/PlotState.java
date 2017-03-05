@@ -6,9 +6,11 @@
 package Assignment2;
 
 /**
- *
+ * State of the Plot
+ * 
  * @author Andy
  */
-public enum PlotState {
+public enum PlotState 
+{
     EMPTY, PLANTED, SPROUTED, READY_TO_HARVEST
 }

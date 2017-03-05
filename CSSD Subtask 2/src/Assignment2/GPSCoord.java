@@ -6,7 +6,8 @@
 package Assignment2;
 
 /**
- *
+ * Holds the latitude and longitude locations of Fields, Farms, Plots and Sensors.
+ * 
  * @author Andy
  */
 public class GPSCoord 

@@ -9,17 +9,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- *
+ * Holds all the information of a Sensor reading within a Calendar object.
+ * 
  * @author Andy
  */
 public class SensorData 
 {
-    //private GPSCoordList sensorLoc; //not needed. use Sensor instead
-    //private Sensor sensor; //not needed. 
     private Calendar dataTime = Calendar.getInstance();
-    //private int sensorId; //unneccessary identifier
     private double rawData;
-    //private SensorType sensorType; //not needed. sensor will already know its type
     
     public SensorData(double rawData)
     {

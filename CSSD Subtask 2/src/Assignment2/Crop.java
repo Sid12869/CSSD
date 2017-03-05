@@ -6,7 +6,8 @@
 package Assignment2;
 
 /**
- *
+ * Holds the type of crop that a Plot currently has.
+ * 
  * @author Andy
  */
 public class Crop 

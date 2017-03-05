@@ -11,12 +11,15 @@ package Assignment2;
  */
 public class LightSensorReader extends SensorReader
 {
+    //min and max values for light
     private final double maximum = 100000;
     private final double minimum = 0;
 
     /**
-     *
-     * @return
+     * Generates a random double between 0 and 100000 to return as
+     * a sensor data reading for the light sensors.
+     * 
+     * @return a random number between 0-100000
      */
     @Override
     public double readSensorData()

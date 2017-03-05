@@ -8,7 +8,12 @@ package Assignment2;
 import java.io.Serializable;
 
 /**
- *
+ * Holds account information for each user. Each account has an AccessLevel,
+ * which limits their access to the system dependant on their account type.
+ * Accounts also have a FarmList, each Farm has a FieldList, which has a 
+ * PlotList, which has a SensorList. In turn, all data is connected to the
+ * user account. 
+ * 
  * @author Sid
  */
 public class User implements Serializable {

@@ -18,7 +18,10 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
- *
+ * Implements all functionality of the Farm Management portion of the GUI.
+ * Includes: add amd delete farm/field/plot, change JList for fields depending 
+ * on selected farm, show all plots in new dialog, view the plot's sensor data.
+ * 
  * @author b4018943
  */
 public class FarmManagementGUI extends javax.swing.JFrame 
@@ -72,6 +75,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         plotList.setListData(selectedField.getPlots().toArray());
     }
     
+    //Set selected farm from the JList
     public void setSelectedFarm()
     {
         int index = farmList.getSelectedIndex();
@@ -86,6 +90,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //Set selected field from the JList
     public void setSelectedField()
     {
         int index = fieldList.getSelectedIndex();
@@ -99,6 +104,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //Set selected plot from the JList
     public void setSelectedPlot()
     {
         int index = plotList.getSelectedIndex();
@@ -112,12 +118,14 @@ public class FarmManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //Get list of fields from selected farm in JList
     public void showFarmFields()
     {
         fields = selectedFarm.getFields();
         fieldList.setListData(fields.toArray());
     }
     
+    //show farm add dialog GUI
     public void addFarm()
     {
         farmCoords = new DefaultListModel();
@@ -125,6 +133,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFarmDialog.setVisible(true);
     }
     
+    //show field add dialog GUI
     public void addField()
     {
         if ((!farmList.isSelectionEmpty()) && (!farmList.isSelectionEmpty()))
@@ -138,6 +147,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //add a new farm to FarmList in user
     public void newFarm()
     {
         GPSCoordList location = new GPSCoordList();
@@ -155,6 +165,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFarmDialog.dispose();
     }
     
+    //add a new field to FieldList in farm
     public void newField()
     {
         GPSCoordList location = new GPSCoordList();
@@ -172,6 +183,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFieldDialog.dispose();
     }
     
+    //add a new plot to PlotList in field
     public void newPlot()
     {
         GPSCoordList location = new GPSCoordList();
@@ -204,6 +216,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addPlotDialog.dispose();
     }
     
+    //remove farm
     public void deleteFarm()
     {
         if ((!farmList.isSelectionEmpty()) && (!farmList.isSelectionEmpty()))
@@ -214,6 +227,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //remove field
     public void deleteField()
     {
         if ((!fieldList.isSelectionEmpty()) && (!fieldList.isSelectionEmpty()))
@@ -1234,6 +1248,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
         }
     }//GEN-LAST:event_btnRemovePlotActionPerformed
     
+    //sets up each JList with appropriate sensor data based on sensor type
     private void btnViewPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPlotActionPerformed
         if ((!plotList.isSelectionEmpty()) && (!plotList.isSelectionEmpty()))
         {
@@ -1310,33 +1325,37 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private void btnPlotDialogCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlotDialogCancelActionPerformed
         addPlotDialog.dispose();
     }//GEN-LAST:event_btnPlotDialogCancelActionPerformed
-
+    
+    //following functions are all the same code but show different sensor type
+    //chart data depending on which button is clicked
     private void btnAirTempChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAirTempChartActionPerformed
+        //Set up chart data/key
         XYSeries signal = new XYSeries("amount");
         XYSeriesCollection dataset = new XYSeriesCollection(signal);
 
-        JFrame f = new JFrame(selectedPlot.getName() + " air temperature chart");
-        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset);
-        f.add(new ChartPanel(chart));
+        JFrame f = new JFrame(selectedPlot.getName() + " air temperature chart"); //set up new JFrame
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //dispose frame on close
+        JFreeChart chart = ChartFactory.createXYLineChart(selectedPlot.getName(), "Reading number", "Reading", dataset); //create chart and add data/keys
+        f.add(new ChartPanel(chart)); //add chart to frame
         JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         signal.clear();
         Sensor sensor;
         SensorData sensorData;
+        //For each sensor in selected plot:
         for (int i = 0; i < selectedPlot.getSensors().size(); i++)
         {
             sensor = selectedPlot.getSensors().get(i);
             if (sensor.getSensorType() == SensorType.AIR_TEMPERATURE)
             {
+                //For each sensor data in sensor:
                 for (int j = 0; j < sensor.getSensorDataList().size(); j++)
                 {
                     sensorData = sensor.getSensorDataList().get(j);
-
-                    signal.add(j, sensorData.getDataRepresentationType());
+                    signal.add(j, sensorData.getDataRepresentationType()); //add the data to the chart
                 }
             }
         }
-
+        //set up frame and show:
         f.add(p, BorderLayout.SOUTH);
         f.pack();
         f.setLocationRelativeTo(null);

@@ -11,13 +11,15 @@ package Assignment2;
  */
 public class AirTempReader extends SensorReader
 {
-    //private final SensorType sensorType = SensorType.AIR_TEMPERATURE;
+    //min and max values for air temp
     private final double maximum = 40;
     private final double minimum = 4;
     
     /**
-     *
-     * @return
+     * Generates a random double between 4 and 40 to return as
+     * a sensor data reading for air temperature.
+     * 
+     * @return a random number between 4-40
      */
     @Override
     public double readSensorData()

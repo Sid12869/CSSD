@@ -6,7 +6,8 @@
 package Assignment2;
 
 /**
- *
+ * Different Sensor types. 
+ * 
  * @author Andy
  */
 public enum SensorType 

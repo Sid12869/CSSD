@@ -5,22 +5,13 @@
  */
 package Assignment2;
 
-import java.util.Random;
-
 /**
- *
+ * Abstract class with 1 abstract method which is overridden by each sensor
+ * reading class.
+ * 
  * @author Andy
  */
 public abstract class SensorReader 
 {
-    
     public abstract double readSensorData();
-    /*{
-        int minimum = 1;
-        double maximum = 14;
-        
-        int randomNum = minimum + (int)(Math.random() * maximum);
-        
-        return randomNum;
-    }*/
 }

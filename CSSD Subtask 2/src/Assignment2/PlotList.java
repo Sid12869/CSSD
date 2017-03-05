@@ -8,7 +8,8 @@ package Assignment2;
 import java.util.ArrayList;
 
 /**
- *
+ * An ArrayList of Plot objects.
+ * 
  * @author Andy
  */
 public class PlotList extends ArrayList<Plot>

@@ -6,7 +6,8 @@
 package Assignment2;
 
 /**
- *
+ * Holds a GPSCoordList for objects including Farm, Field and Plot
+ * 
  * @author Andy
  */
 public class Area 
@@ -22,5 +23,4 @@ public class Area
     {
         return gpsPoints;
     }
-    //public boolean isInArea(location){} //not sure what this function does...
 }

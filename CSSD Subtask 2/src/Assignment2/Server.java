@@ -6,20 +6,17 @@
 package Assignment2;
 
 /**
- *
+ * Holds a list of all Users. 
+ * Ability to add and get to and from the UserList. 
+ * 
  * @author Andy
  */
 public class Server 
 {
-    private FieldStationList registeredFieldStations;
-    private SensorList sensors;
-    private FarmList farms; //changed from 'DataManagement'.
+    //private FieldStationList registeredFieldStations;
+    //private SensorList sensors;
+    //private FarmList farms; //changed from 'DataManagement'. // no longer needed - stored within each user
     private UserList users = new UserList(); //changed from 'DataManagement'.
-    
-    public Server()
-    {
-        //constructor not defined
-    }
     
     public void registerUser(User user)
     {
@@ -31,6 +28,7 @@ public class Server
         return users;
     }
     
+    //following functions not used/defined: 
 //    public void registerFieldStation(GPSCoordList location, String phoneNo, String setupKey)
 //    {
 //        FieldStation station = new FieldStation(location, phoneNo, setupKey);

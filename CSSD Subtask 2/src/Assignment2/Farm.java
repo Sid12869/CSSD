@@ -8,14 +8,15 @@ package Assignment2;
 import java.io.Serializable;
 
 /**
- *
+ * Holds a FieldList; all the Field objects within a Farm. Each Farm has an
+ * Area to show the location of the Farm, as well as a name.
+ * 
  * @author Andy
  */
 public class Farm implements Serializable 
 {
     private Area area;
     private FieldList fields = new FieldList();
-    private int id; //not necessary because not a database?
     private String name;
     
     public Farm(Area area, String name)
@@ -23,11 +24,6 @@ public class Farm implements Serializable
         this.area = area;
         this.name = name;
     }
-    
-    /*public Plot getPlotInPosition(GPSCoord location)
-    {
-        return plot;
-    }*/
     
     public String toString(){
         return name;
@@ -47,4 +43,6 @@ public class Farm implements Serializable
     {
         return name;
     }
+    
+    //public Plot getPlotInPosition(GPSCoord location){return plot;} //undefined function, not needed for implementation.
 }

@@ -7,10 +7,18 @@ package Assignment2;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
- *
+ * Each Sensor has a single GPSCoord location, and can be set to enabled or
+ * disabled through a boolean, which the user can change. It has a frequency,
+ * which is the amount of time between each time a reading should be taken.
+ * It does this by creating a time when an object is created, and the FieldClock
+ * thread checks if that time + the frequency is past the current time, and will
+ * update if required. The time will then be set to the time + frequency,
+ * so the thread can check for the next update time. 
+ * Each Sensor is a different type, defined in SensorType enumeration class. 
+ * Sensors have a list of SensorData which is used to generate graphs. 
+ * 
  * @author Andy
  */
 public class Sensor implements Serializable
@@ -20,8 +28,6 @@ public class Sensor implements Serializable
     private long frequency;
     private Calendar lastCheck = Calendar.getInstance();
     private SensorType sensorType;
-    private SensorReader sensorReader;
-    private FieldStation fieldStation;
     private SensorDataList sensorData = new SensorDataList();
     
     public Sensor(GPSCoord location, boolean enabled, long frequency, SensorType sensorType)
@@ -89,11 +95,6 @@ public class Sensor implements Serializable
         {
             return false;
         }
-    }
-    
-    public void setReader(SensorReader sensorReader)
-    {
-        this.sensorReader = sensorReader;
     }
     
     public boolean isEnabled()

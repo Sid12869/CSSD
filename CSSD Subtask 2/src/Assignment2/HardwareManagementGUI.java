@@ -6,7 +6,8 @@
 package Assignment2;
 
 /**
- *
+ * Implements all functionality of the Hardware Management portion of the GUI.
+ * 
  * @author Andy
  */
 public class HardwareManagementGUI extends javax.swing.JFrame 
@@ -34,11 +35,13 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         getFarmList();
     }
     
+    //Get list of farms in JList
     public final void getFarmList()
     {
         farmList.setListData(farms.toArray());
     }
     
+    //Set the farm that is selected from the JList
     public void setSelectedFarm()
     {
         int index = farmList.getSelectedIndex();
@@ -53,6 +56,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //Set the field that is selected from the JList
     public void setSelectedField()
     {
         int index = fieldList.getSelectedIndex();
@@ -67,6 +71,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //Set the plot that is selected from the JList
     public void setSelectedPlot()
     {
         int index = plotList.getSelectedIndex();
@@ -80,6 +85,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //Set the sensor that is selected from the JList
     public void setSelectedSensor()
     {
         int index = sensorList.getSelectedIndex();
@@ -94,19 +100,21 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         }
     }
     
+    //Get list of fields from selected farm in JList
     public void showFarmFields()
     {
         fields = selectedFarm.getFields();
         fieldList.setListData(fields.toArray());
     }
     
+    //Get list of plots from selected field in JList
     public void showPlots()
     {
         plots = selectedField.getPlots();
         plotList.setListData(plots.toArray());
     }
     
-    //Should these functions be in a different class and pass the variables?
+    //Add/set a new Field Station
     public void addFieldStation()
     {
         String phone = txtFieldStationPhone.getText();
@@ -117,6 +125,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         selectedField.setFieldStation(fieldStation);
     }
     
+    //Add new sensor to the SensorList within the selected plot
     public void addSensor()
     {
         long frequency = (int) txtSensorFrequency.getModel().getValue();
@@ -145,6 +154,7 @@ public class HardwareManagementGUI extends javax.swing.JFrame
         selectedPlot.getSensors().add(sensor);
     }
     
+    //Updated selected sensor
     public void editSensor()
     {
         long frequency = (int) txtEditSensorFrequency.getModel().getValue();

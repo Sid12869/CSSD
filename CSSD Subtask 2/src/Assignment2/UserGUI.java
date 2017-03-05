@@ -6,7 +6,8 @@
 package Assignment2;
 
 /**
- *
+ * Main GUI to choose Farm Management of Hardware Management of the system.
+ * 
  * @author Sid
  */
 public class UserGUI extends javax.swing.JFrame 

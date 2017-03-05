@@ -8,7 +8,9 @@ package Assignment2;
 import java.io.Serializable;
 
 /**
- *
+ * Holds a PlotList; all the Plot objects within a Field. Each Field has an
+ * Area to show the location of the Field, as well as a name.
+ * 
  * @author Andy
  */
 public class Field implements Serializable
@@ -23,12 +25,7 @@ public class Field implements Serializable
         this.area = area;
         this.name = name;
     }
-    
-    /*public Plot getPlotInPosition(GPSCoord location)
-    {
-        return plot;
-    }*/
-    
+        
     public void setFieldStation(FieldStation fieldStation)
     {
         this.fieldStation = fieldStation;
@@ -57,4 +54,6 @@ public class Field implements Serializable
     {
         return name;
     }
+    
+    //public Plot getPlotInPosition(GPSCoord location){return plot;} //undefined function, not needed for implementation.
 }

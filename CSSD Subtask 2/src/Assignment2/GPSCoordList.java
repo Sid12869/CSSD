@@ -8,7 +8,9 @@ package Assignment2;
 import java.util.ArrayList;
 
 /**
- *
+ * An ArrayList of GPSCoord objects. This is stored in an Area, which is used
+ * to draw an area of a Farm/Field/Plot.
+ * 
  * @author Andy
  */
 public class GPSCoordList extends ArrayList<GPSCoord>
