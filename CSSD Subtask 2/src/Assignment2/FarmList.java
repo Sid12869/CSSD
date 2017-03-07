@@ -31,7 +31,7 @@ public class FarmList extends ArrayList<Farm>
         super.remove(aFarm);
     }
     
-    public FieldList getFarm(String farmName)
+    public FieldList getFieldsByFarmName(String farmName)
     {
         for(int i = 0; i < this.size(); i++)
         {

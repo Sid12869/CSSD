@@ -19,10 +19,15 @@ public class FieldStation implements Serializable
     private String uniquePhoneNumber;
     private String setupSecretKey;
     private SensorDataList sensorData;
-    private Date lastSyncTime;
-    private FieldClock fieldClock;
     
     public FieldStation(GPSCoord location, String uniquePhoneNumber, String setupSecretKey)
+    {
+        this.location = location;
+        this.uniquePhoneNumber = uniquePhoneNumber;
+        this.setupSecretKey = setupSecretKey;
+    }
+    
+    public void updateStation(GPSCoord location, String uniquePhoneNumber, String setupSecretKey)
     {
         this.location = location;
         this.uniquePhoneNumber = uniquePhoneNumber;
