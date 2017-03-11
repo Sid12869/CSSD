@@ -58,6 +58,10 @@ public class FarmManagementGUI extends javax.swing.JFrame
     }
     
     //fill farm JList
+    //Obeserver pattern - this is called when the FarmList is changed (when an 
+    //element is added, removed or updated, for example). This is called when
+    //btnDeleteFarmActionPerformed() and btnAddFarmActionPerformed() functions
+    //are called (located around line 1170). 
     public final void getFarmList()
     {
         farmList.setListData(farms.toArray());
@@ -217,6 +221,9 @@ public class FarmManagementGUI extends javax.swing.JFrame
     }
     
     //remove farm
+    //Obeserver pattern - this calls the function to remove a farm from the 
+    //farm class and then calls getFarmList() to updat the list of farms
+    //on the interface.
     public void deleteFarm()
     {
         if ((!farmList.isSelectionEmpty()) && (!farmList.isSelectionEmpty()))
@@ -1158,7 +1165,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
     private void farmListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_farmListMouseClicked
         setSelectedFarm();
     }//GEN-LAST:event_farmListMouseClicked
-
+    
+    //Obeserver pattern - this calls the deleteFarm() function. 
     private void btnDeleteFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteFarmActionPerformed
         deleteFarm();
     }//GEN-LAST:event_btnDeleteFarmActionPerformed
