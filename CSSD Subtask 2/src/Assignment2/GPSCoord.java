@@ -24,4 +24,13 @@ public class GPSCoord
     public String toString(){
         return Double.toString(lat) +  ", " + Double.toString(lng);
     }
+    
+    public Double getLat(){
+        return lat;
+    }
+    
+    public Double getLng(){
+        return lng;
+    }
+    
 }

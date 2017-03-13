@@ -44,6 +44,10 @@ public class FarmManagementGUI extends javax.swing.JFrame
     DefaultListModel soilMoistureDataModel = new DefaultListModel();
     DefaultListModel lightDataModel = new DefaultListModel();
     
+    SetPoints setPoints = new SetPoints();
+    
+    //ViewPoints viewPoints = new ViewPoints();
+    
     /**
      * Creates new form FarmList
      * @param user
@@ -134,6 +138,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
     {
         farmCoords = new DefaultListModel();
         farmCoordList.setModel(farmCoords);
+        setPoints.openMap();
         addFarmDialog.setVisible(true);
     }
     
@@ -355,7 +360,7 @@ public class FarmManagementGUI extends javax.swing.JFrame
 
         addFarmDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addFarmDialog.setAlwaysOnTop(true);
-        addFarmDialog.setMinimumSize(new java.awt.Dimension(280, 340));
+        addFarmDialog.setMinimumSize(new java.awt.Dimension(280, 500));
         addFarmDialog.setModal(true);
         addFarmDialog.setResizable(false);
 
@@ -394,23 +399,23 @@ public class FarmManagementGUI extends javax.swing.JFrame
         addFarmDialog.getContentPane().setLayout(addFarmDialogLayout);
         addFarmDialogLayout.setHorizontalGroup(
             addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addFarmDialogLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFarmDialogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                    .addComponent(txtFarmName)
-                    .addComponent(txtFarmLocation)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFarmDialogLayout.createSequentialGroup()
+                .addGroup(addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                    .addGroup(addFarmDialogLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnFarmDialogCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnFarmDialogAdd))
-                    .addGroup(addFarmDialogLayout.createSequentialGroup()
+                    .addComponent(txtFarmName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFarmLocation, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addFarmDialogLayout.createSequentialGroup()
                         .addGroup(addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddFarmCoords)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(btnAddFarmCoords))
+                            .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -427,15 +432,15 @@ public class FarmManagementGUI extends javax.swing.JFrame
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFarmLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(btnAddFarmCoords)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(addFarmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFarmDialogCancel)
-                    .addComponent(btnFarmDialogAdd))
-                .addContainerGap(63, Short.MAX_VALUE))
+                    .addComponent(btnFarmDialogAdd)
+                    .addComponent(btnFarmDialogCancel))
+                .addGap(45, 45, 45))
         );
 
         addFieldDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -762,7 +767,6 @@ public class FarmManagementGUI extends javax.swing.JFrame
 
         viewPlotDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         viewPlotDialog.setMinimumSize(new java.awt.Dimension(600, 420));
-        viewPlotDialog.setPreferredSize(new java.awt.Dimension(600, 420));
 
         jScrollPane9.setViewportView(airTempDataList);
 
@@ -1224,6 +1228,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
             Area area = selectedFarm.getArea();
             farmLocationList.setListData(area.getCoordList().toArray());
             viewFarmDialog.setVisible(true);
+            ViewPoints viewPoints = new ViewPoints(selectedFarm.getName(),area.getCoordList());
+            viewPoints.OpenMap();
         }
     }//GEN-LAST:event_btnViewFarmActionPerformed
 
@@ -1235,6 +1241,8 @@ public class FarmManagementGUI extends javax.swing.JFrame
             fieldLocationList.setListData(area.getCoordList().toArray());
             getPlotList();
             viewFieldDialog.setVisible(true);
+            ViewPoints viewPoints = new ViewPoints(selectedFarm.getName() + " - " + selectedField.getName(),area.getCoordList());
+            viewPoints.OpenMap();
         }
     }//GEN-LAST:event_btnViewFieldActionPerformed
 
